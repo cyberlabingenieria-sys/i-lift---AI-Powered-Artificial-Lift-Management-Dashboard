@@ -1,21 +1,21 @@
-# راهنمای راه‌اندازی پروژه
+# Project Setup Guide
 
-## پیش‌نیازها
+## Prerequisites
 
 - Node.js 20+
 - Python 3.11+
 - Docker & Docker Compose
-- PostgreSQL (با TimescaleDB)
+- PostgreSQL (with TimescaleDB)
 
-## نصب و راه‌اندازی
+## Installation and Setup
 
-### 1. نصب وابستگی‌ها
+### 1. Install Dependencies
 
 ```bash
-# نصب وابستگی‌های اصلی
+# Install the main dependencies
 npm run install:all
 
-# یا به صورت جداگانه:
+# Or separately:
 npm install
 cd frontend && npm install
 cd ../backend && pip install -r requirements.txt
@@ -23,23 +23,23 @@ cd ../data-processing && pip install -r requirements.txt
 cd ../ml-services && pip install -r requirements.txt
 ```
 
-### 2. راه‌اندازی با Docker
+### 2. Setup with Docker
 
 ```bash
-# ساخت و راه‌اندازی تمام سرویس‌ها
+# Build and start all services
 docker-compose up -d
 
-# یا فقط ساخت
+# Or just build
 docker-compose build
 ```
 
-### 3. راه‌اندازی دستی
+### 3. Manual Setup
 
 #### Backend API
 ```bash
 cd backend
 cp .env.example .env
-# ویرایش .env با تنظیمات مناسب
+# Edit .env with appropriate settings
 uvicorn app.main:app --reload
 ```
 
@@ -49,18 +49,18 @@ cd frontend
 npm run dev
 ```
 
-### 4. تنظیمات پایگاه داده
+### 4. Database Settings
 
 ```bash
-# اجرای migrations
+# Run migrations
 cd backend
 alembic upgrade head
 
-# یا با Docker
+# Or with Docker
 docker-compose exec backend alembic upgrade head
 ```
 
-## ساختار پروژه
+## Project Structure
 
 ```
 i-lift---AI-Powered-Artificial-Lift-Management-Dashboard/
@@ -90,16 +90,16 @@ i-lift---AI-Powered-Artificial-Lift-Management-Dashboard/
 └── package.json
 ```
 
-## دستورات مفید
+## Useful Commands
 
 ```bash
-# اجرای توسعه
+# Run development
 npm run dev
 
-# ساخت پروژه
+# Build the project
 npm run build
 
-# تست
+# Test
 npm run test
 
 # Linting
@@ -111,7 +111,7 @@ npm run docker:up
 npm run docker:down
 ```
 
-## پورت‌ها
+## Ports
 
 - Frontend: http://localhost:3000
 - Backend API: http://localhost:8000
@@ -120,9 +120,9 @@ npm run docker:down
 - Prometheus: http://localhost:9090
 - MLflow: http://localhost:5000
 
-## نکات مهم
+## Important Notes
 
-1. فایل `.env` را در backend تنظیم کنید
-2. پایگاه داده باید TimescaleDB extension داشته باشد
-3. برای تولید داده‌های سنتتیک از `data-processing/synthetic_data_generator.py` استفاده کنید
+1. Set up the `.env` file in the backend
+2. The database must have the TimescaleDB extension
+3. To generate synthetic data use `data-processing/synthetic_data_generator.py`
 

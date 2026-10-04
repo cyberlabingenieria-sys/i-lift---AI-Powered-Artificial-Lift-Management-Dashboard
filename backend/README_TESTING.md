@@ -1,15 +1,15 @@
-# Testing و Quality Assurance
+# Testing and Quality Assurance
 
-راهنمای کامل Testing و Quality Assurance
+Complete guide to Testing and Quality Assurance
 
 ## Overview
 
-سیستم Testing شامل:
-- **Unit Tests**: تست‌های unit برای services و utilities
-- **Integration Tests**: تست‌های integration برای API endpoints
-- **Frontend Tests**: تست‌های React components
+The Testing system includes:
+- **Unit Tests**: Unit tests for services and utilities
+- **Integration Tests**: Integration tests for API endpoints
+- **Frontend Tests**: React component tests
 - **Code Quality**: Linting, formatting, type checking
-- **CI/CD**: Automated testing در CI/CD pipeline
+- **CI/CD**: Automated testing in the CI/CD pipeline
 
 ## Backend Testing
 
@@ -52,7 +52,7 @@ pytest -m integration
 
 ### Test Fixtures
 
-Fixtures در `conftest.py` تعریف شده‌اند:
+Fixtures are defined in `conftest.py`:
 
 - `db`: Test database session
 - `client`: FastAPI test client
@@ -82,7 +82,7 @@ def test_create_well(client, auth_headers, fake_well_data):
 
 ### Test Coverage
 
-هدف coverage: **70%**
+Coverage target: **70%**
 
 ```bash
 # Generate coverage report
@@ -125,7 +125,7 @@ npm test -- StatCard.test.tsx
 
 ### Testing Library
 
-استفاده از:
+Using:
 - **Jest**: Test runner
 - **React Testing Library**: Component testing
 - **@testing-library/jest-dom**: DOM matchers
@@ -208,7 +208,7 @@ npx tsc --noEmit
 
 ## Test Markers
 
-استفاده از pytest markers برای categorizing tests:
+Using pytest markers for categorizing tests:
 
 ```python
 @pytest.mark.unit
@@ -228,10 +228,10 @@ def test_heavy_computation():
 
 ### GitHub Actions
 
-Workflow در `.github/workflows/test.yml`:
+Workflow in `.github/workflows/test.yml`:
 
 1. **Backend Tests**:
-   - Setup PostgreSQL و Redis
+   - Set up PostgreSQL and Redis
    - Install dependencies
    - Run linters
    - Run tests with coverage
@@ -318,7 +318,7 @@ jest.mock('@/lib/api', () => ({
 
 ### Pre-commit Hooks
 
-برای اجرای tests قبل از commit:
+To run tests before committing:
 
 ```bash
 # Install pre-commit
@@ -350,7 +350,7 @@ repos:
 
 ## Performance Testing
 
-برای performance testing:
+For performance testing:
 
 ```python
 import time
@@ -366,7 +366,7 @@ def test_api_performance(client, auth_headers):
 
 ## Security Testing
 
-برای security testing:
+For security testing:
 
 ```python
 def test_sql_injection_protection(client, auth_headers):

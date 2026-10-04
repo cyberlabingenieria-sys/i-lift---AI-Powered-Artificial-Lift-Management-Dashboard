@@ -1,20 +1,20 @@
-# Alert System و Notifications
+# Alert System and Notifications
 
-راهنمای کامل سیستم Alert و Notifications
+Complete guide to the Alert and Notifications system
 
 ## Overview
 
-سیستم Alert شامل:
-- **Alert Rules Engine**: تعریف و ارزیابی قوانین alert
-- **Alert Detection Service**: تشخیص خودکار alerts از sensor data
-- **Notification Service**: ارسال notifications از طریق کانال‌های مختلف
-- **Alert Management**: مدیریت alerts (create, resolve, delete)
+The Alert system includes:
+- **Alert Rules Engine**: Defining and evaluating alert rules
+- **Alert Detection Service**: Automatic detection of alerts from sensor data
+- **Notification Service**: Sending notifications through various channels
+- **Alert Management**: Managing alerts (create, resolve, delete)
 
 ## Alert Rules
 
 ### Default Rules
 
-سیستم با قوانین پیش‌فرض زیر شروع می‌شود:
+The system starts with the following default rules:
 
 1. **Motor Temperature Critical** (>95°C)
 2. **Motor Temperature Warning** (>85°C)
@@ -34,72 +34,72 @@
 
 ### Severity Levels
 
-- `low`: نیاز به توجه
-- `medium`: نیاز به بررسی
-- `high`: نیاز به اقدام فوری
-- `critical`: نیاز به اقدام فوری
+- `low`: needs attention
+- `medium`: needs review
+- `high`: needs immediate action
+- `critical`: needs immediate action
 
 ## API Endpoints
 
 ### Alert Rules
 
 #### GET `/api/v1/alert-rules/`
-لیست تمام alert rules
+List all alert rules
 
 #### POST `/api/v1/alert-rules/`
-ایجاد alert rule جدید (admin only)
+Create a new alert rule (admin only)
 
 #### GET `/api/v1/alert-rules/{rule_id}`
-دریافت alert rule خاص
+Get a specific alert rule
 
 #### PUT `/api/v1/alert-rules/{rule_id}`
-به‌روزرسانی alert rule (admin only)
+Update an alert rule (admin only)
 
 #### DELETE `/api/v1/alert-rules/{rule_id}`
-حذف alert rule (admin only)
+Delete an alert rule (admin only)
 
 ### Notifications
 
 #### POST `/api/v1/notifications/send`
-ارسال notification برای یک alert
+Send a notification for an alert
 
 #### GET `/api/v1/notifications/preferences`
-دریافت تنظیمات notifications کاربر
+Get the user's notification settings
 
 #### PUT `/api/v1/notifications/preferences`
-به‌روزرسانی تنظیمات notifications
+Update notification settings
 
 ## Notification Channels
 
 ### 1. Email
-- برای alerts با severity medium و بالاتر
-- قابل تنظیم برای هر کاربر
+- For alerts with severity medium and above
+- Configurable per user
 
 ### 2. SMS
-- برای alerts با severity critical
-- نیاز به تنظیم SMS provider
+- For alerts with critical severity
+- Requires an SMS provider to be configured
 
 ### 3. Push Notifications
-- برای تمام alerts
+- For all alerts
 - Real-time browser notifications
 
 ### 4. Webhook
-- برای integration با سیستم‌های خارجی
-- POST request به URL مشخص
+- For integration with external systems
+- POST request to a specified URL
 
 ## Alert Detection
 
 ### Automatic Detection
 
-`AlertDetectionService` به صورت خودکار:
-1. Sensor readings را monitor می‌کند
-2. آنها را با alert rules مقایسه می‌کند
-3. Alerts را ایجاد می‌کند
-4. Notifications را ارسال می‌کند
+`AlertDetectionService` automatically:
+1. Monitors sensor readings
+2. Compares them with alert rules
+3. Creates alerts
+4. Sends notifications
 
 ### Manual Detection
 
-می‌توانید به صورت دستی یک well را check کنید:
+You can manually check a well:
 
 ```python
 from app.services.alert_detection_service import AlertDetectionService
@@ -108,13 +108,13 @@ service = AlertDetectionService()
 alerts = await service.check_well_status("Well_01")
 ```
 
-## راه‌اندازی Alert Monitor
+## Setting Up the Alert Monitor
 
 ```bash
 python backend/scripts/start_alert_monitor.py
 ```
 
-این script به صورت continuous sensor data را monitor می‌کند و alerts ایجاد می‌کند.
+This script continuously monitors sensor data and creates alerts.
 
 ## Notification Configuration
 
@@ -148,7 +148,7 @@ PUSH_API_KEY = "your-api-key"
 
 ## Example Usage
 
-### ایجاد Alert Rule جدید
+### Creating a New Alert Rule
 
 ```bash
 curl -X POST "http://localhost:8000/api/v1/alert-rules/" \
@@ -165,7 +165,7 @@ curl -X POST "http://localhost:8000/api/v1/alert-rules/" \
   }'
 ```
 
-### ارسال Notification
+### Sending a Notification
 
 ```bash
 curl -X POST "http://localhost:8000/api/v1/notifications/send" \
@@ -188,23 +188,23 @@ curl -X POST "http://localhost:8000/api/v1/notifications/send" \
 
 ## Best Practices
 
-1. **Rule Design**: قوانین را به گونه‌ای طراحی کنید که false positives کمتری داشته باشند
-2. **Severity Levels**: از severity levels به درستی استفاده کنید
-3. **Notification Channels**: برای هر severity level کانال مناسب انتخاب کنید
-4. **Monitoring**: Alert monitor را به صورت continuous اجرا کنید
-5. **Resolution**: Alerts را به موقع resolve کنید
+1. **Rule Design**: Design rules so they produce fewer false positives
+2. **Severity Levels**: Use severity levels correctly
+3. **Notification Channels**: Choose an appropriate channel for each severity level
+4. **Monitoring**: Run the Alert monitor continuously
+5. **Resolution**: Resolve alerts in a timely manner
 
 ## Integration
 
-### با Sensor Service:
-- Sensor readings به صورت خودکار check می‌شوند
-- Alerts به صورت real-time ایجاد می‌شوند
+### With Sensor Service:
+- Sensor readings are checked automatically
+- Alerts are created in real time
 
-### با ML Service:
-- ML predictions می‌توانند triggers برای alerts باشند
-- Anomaly detection alerts به صورت خودکار ایجاد می‌شوند
+### With ML Service:
+- ML predictions can be triggers for alerts
+- Anomaly detection alerts are created automatically
 
-### با Dashboard:
-- Alerts در dashboard نمایش داده می‌شوند
-- Real-time updates برای alerts
+### With Dashboard:
+- Alerts are displayed on the dashboard
+- Real-time updates for alerts
 

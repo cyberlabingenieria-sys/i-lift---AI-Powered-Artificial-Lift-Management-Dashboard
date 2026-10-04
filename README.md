@@ -2,60 +2,60 @@
 
 **AI-Powered Artificial Lift Management Dashboard**
 
-یک سیستم جامع برای مانیتورینگ، تحلیل و بهینه‌سازی سیستم‌های Artificial Lift در صنعت نفت و گاز با استفاده از هوش مصنوعی و یادگیری ماشین.
+A comprehensive system for monitoring, analyzing and optimizing Artificial Lift systems in the oil and gas industry using artificial intelligence and machine learning.
 
-## 📋 فهرست مطالب
+## 📋 Table of Contents
 
-- [ویژگی‌ها](#ویژگی‌ها)
-- [معماری سیستم](#معماری-سیستم)
-- [نصب و راه‌اندازی](#نصب-و-راه‌اندازی)
-- [ساختار پروژه](#ساختار-پروژه)
-- [مستندات](#مستندات)
-- [توسعه](#توسعه)
-- [تست](#تست)
-- [استقرار](#استقرار)
-- [مشارکت](#مشارکت)
+- [Features](#features)
+- [System Architecture](#system-architecture)
+- [Installation and Setup](#installation-and-setup)
+- [Project Structure](#project-structure)
+- [Documentation](#documentation)
+- [Development](#development)
+- [Testing](#testing)
+- [Deployment](#deployment)
+- [Contributing](#contributing)
 
-## ✨ ویژگی‌ها
+## ✨ Features
 
 ### 🔄 Real-time Data Processing
-- **Data Ingestion**: پشتیبانی از MQTT, OPC-UA, REST API
-- **Stream Processing**: پردازش real-time با Apache Kafka
-- **Data Validation**: اعتبارسنجی و پاکسازی خودکار داده‌ها
-- **Feature Engineering**: استخراج ویژگی‌های خودکار
+- **Data Ingestion**: Support for MQTT, OPC-UA, REST API
+- **Stream Processing**: Real-time processing with Apache Kafka
+- **Data Validation**: Automatic data validation and cleaning
+- **Feature Engineering**: Automatic feature extraction
 
 ### 🤖 Machine Learning & AI
-- **Anomaly Detection**: تشخیص ناهنجاری‌ها با Isolation Forest
-- **Predictive Maintenance**: پیش‌بینی خرابی تجهیزات
-- **Failure Prediction**: پیش‌بینی زمان خرابی
-- **Optimization Recommendations**: توصیه‌های بهینه‌سازی
+- **Anomaly Detection**: Anomaly detection with Isolation Forest
+- **Predictive Maintenance**: Equipment failure prediction
+- **Failure Prediction**: Failure time prediction
+- **Optimization Recommendations**: Optimization recommendations
 
 ### 📊 Analytics & Visualization
-- **Real-time Dashboard**: داشبورد real-time با latency کمتر از 3 ثانیه
-- **Historical Analysis**: تحلیل روندهای تاریخی
-- **Geographic Mapping**: نقشه‌برداری جغرافیایی چاه‌ها
-- **Custom KPIs**: ویجت‌های KPI قابل تنظیم
+- **Real-time Dashboard**: Real-time dashboard with latency under 3 seconds
+- **Historical Analysis**: Historical trend analysis
+- **Geographic Mapping**: Geographic mapping of wells
+- **Custom KPIs**: Configurable KPI widgets
 
 ### 🔔 Alerting & Notifications
 - **Multi-channel Alerts**: SMS, Email, In-app notifications
-- **Alert Rules Engine**: موتور قوانین قابل تنظیم
-- **Severity Levels**: سطوح مختلف severity
-- **Alert Resolution**: ردیابی و حل alerts
+- **Alert Rules Engine**: Configurable rules engine
+- **Severity Levels**: Different severity levels
+- **Alert Resolution**: Tracking and resolving alerts
 
 ### 🔒 Security & Compliance
 - **Authentication**: JWT-based authentication
 - **RBAC**: Role-Based Access Control
-- **Audit Logging**: ثبت تمام فعالیت‌ها
-- **Data Encryption**: رمزنگاری داده‌های حساس
-- **Compliance Reports**: گزارش‌های compliance
+- **Audit Logging**: Logging all activities
+- **Data Encryption**: Encryption of sensitive data
+- **Compliance Reports**: Compliance reports
 
 ### 📈 Monitoring & Observability
-- **Prometheus Metrics**: جمع‌آوری metrics
-- **Health Checks**: بررسی سلامت سرویس‌ها
-- **System Monitoring**: مانیتورینگ منابع سیستم
-- **Distributed Tracing**: ردیابی درخواست‌ها
+- **Prometheus Metrics**: Metrics collection
+- **Health Checks**: Service health checks
+- **System Monitoring**: System resource monitoring
+- **Distributed Tracing**: Request tracing
 
-## 🏗️ معماری سیستم
+## 🏗️ System Architecture
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
@@ -96,18 +96,18 @@
 └─────────────────────────────────────────────────────────────┘
 ```
 
-## 🚀 نصب و راه‌اندازی
+## 🚀 Installation and Setup
 
-### پیش‌نیازها
+### Prerequisites
 
 - **Node.js** 20+
 - **Python** 3.11+
 - **Docker** & Docker Compose
-- **PostgreSQL** 15+ (با TimescaleDB extension)
+- **PostgreSQL** 15+ (with the TimescaleDB extension)
 - **Redis** 7+
-- **Kafka** (اختیاری برای production)
+- **Kafka** (optional for production)
 
-### نصب سریع
+### Quick Installation
 
 ```bash
 # Clone repository
@@ -124,9 +124,9 @@ docker-compose up -d
 npm run dev
 ```
 
-برای راهنمای کامل نصب، به [README_SETUP.md](README_SETUP.md) مراجعه کنید.
+For the complete installation guide, see [README_SETUP.md](README_SETUP.md).
 
-## 📁 ساختار پروژه
+## 📁 Project Structure
 
 ```
 i-lift---AI-Powered-Artificial-Lift-Management-Dashboard/
@@ -169,36 +169,36 @@ i-lift---AI-Powered-Artificial-Lift-Management-Dashboard/
 └── package.json            # Root package.json
 ```
 
-## 📚 مستندات
+## 📚 Documentation
 
-### مستندات اصلی
+### Main Documentation
 
-- **[Setup Guide](README_SETUP.md)** - راهنمای نصب و راه‌اندازی
-- **[Architecture Documentation](docs/ARCHITECTURE.md)** - معماری سیستم
-- **[API Documentation](docs/API.md)** - مستندات کامل API
-- **[Deployment Guide](docs/DEPLOYMENT.md)** - راهنمای استقرار
-- **[User Guide](docs/USER_GUIDE.md)** - راهنمای کاربر
+- **[Setup Guide](README_SETUP.md)** - Installation and setup guide
+- **[Architecture Documentation](docs/ARCHITECTURE.md)** - System architecture
+- **[API Documentation](docs/API.md)** - Complete API documentation
+- **[Deployment Guide](docs/DEPLOYMENT.md)** - Deployment guide
+- **[User Guide](docs/USER_GUIDE.md)** - User guide
 
-### مستندات Backend
+### Backend Documentation
 
-- **[Authentication](backend/README_AUTH.md)** - سیستم احراز هویت
-- **[Data Ingestion](backend/README_INGESTION.md)** - دریافت داده
-- **[Data Processing](backend/README_PROCESSING.md)** - پردازش داده
-- **[Alerts & Notifications](backend/README_ALERTS_NOTIFICATIONS.md)** - سیستم هشدار
-- **[Security & Compliance](backend/README_SECURITY_COMPLIANCE.md)** - امنیت و compliance
-- **[Monitoring](backend/README_MONITORING.md)** - مانیتورینگ
-- **[Testing](backend/README_TESTING.md)** - تست‌ها
+- **[Authentication](backend/README_AUTH.md)** - Authentication system
+- **[Data Ingestion](backend/README_INGESTION.md)** - Data ingestion
+- **[Data Processing](backend/README_PROCESSING.md)** - Data processing
+- **[Alerts & Notifications](backend/README_ALERTS_NOTIFICATIONS.md)** - Alert system
+- **[Security & Compliance](backend/README_SECURITY_COMPLIANCE.md)** - Security and compliance
+- **[Monitoring](backend/README_MONITORING.md)** - Monitoring
+- **[Testing](backend/README_TESTING.md)** - Tests
 
-### مستندات API
+### API Documentation
 
-- **[Data API](backend/README_API_DATA.md)** - API داده‌ها
-- **[Analytics API](backend/README_API_ANALYTICS.md)** - API تحلیل‌ها
-- **[ML API](backend/README_API_ML.md)** - API یادگیری ماشین
-- **[Alerts API](backend/README_API_ALERTS.md)** - API هشدارها
+- **[Data API](backend/README_API_DATA.md)** - Data API
+- **[Analytics API](backend/README_API_ANALYTICS.md)** - Analytics API
+- **[ML API](backend/README_API_ML.md)** - Machine learning API
+- **[Alerts API](backend/README_API_ALERTS.md)** - Alerts API
 
-## 💻 توسعه
+## 💻 Development
 
-### راه‌اندازی محیط توسعه
+### Setting Up the Development Environment
 
 ```bash
 # Install dependencies
@@ -211,7 +211,7 @@ npm run dev
 # Frontend will run on http://localhost:3000
 ```
 
-### دستورات مفید
+### Useful Commands
 
 ```bash
 # Development
@@ -240,7 +240,7 @@ npm run docker:up        # Start Docker containers
 npm run docker:down      # Stop Docker containers
 ```
 
-## 🧪 تست
+## 🧪 Testing
 
 ### Backend Tests
 
@@ -260,9 +260,9 @@ npm test -- --coverage   # Run with coverage
 npm test -- --watch      # Watch mode
 ```
 
-برای اطلاعات بیشتر، به [Testing Documentation](backend/README_TESTING.md) مراجعه کنید.
+For more information, see [Testing Documentation](backend/README_TESTING.md).
 
-## 🚢 استقرار
+## 🚢 Deployment
 
 ### Docker Deployment
 
@@ -279,13 +279,13 @@ docker-compose down
 
 ### Production Deployment
 
-برای راهنمای کامل استقرار در production، به [Deployment Guide](docs/DEPLOYMENT.md) مراجعه کنید.
+For the complete production deployment guide, see [Deployment Guide](docs/DEPLOYMENT.md).
 
-## 🤝 مشارکت
+## 🤝 Contributing
 
-ما از مشارکت شما استقبال می‌کنیم! لطفاً به [Contributing Guide](docs/CONTRIBUTING.md) مراجعه کنید.
+We welcome your contributions! Please see the [Contributing Guide](docs/CONTRIBUTING.md).
 
-### فرآیند مشارکت
+### Contribution Process
 
 1. Fork the repository
 2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
@@ -293,7 +293,7 @@ docker-compose down
 4. Push to the branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-## 📊 تکنولوژی‌ها
+## 📊 Technologies
 
 ### Frontend
 - **Next.js 14** - React framework
@@ -339,7 +339,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 📞 Support
 
-برای پشتیبانی و سوالات:
+For support and questions:
 - **Issues**: [GitHub Issues](https://github.com/your-repo/issues)
 - **Documentation**: [Full Documentation](docs/)
 - **Email**: support@example.com

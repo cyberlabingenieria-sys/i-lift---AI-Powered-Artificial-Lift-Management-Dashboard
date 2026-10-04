@@ -1,19 +1,19 @@
-# راهنمای Data Ingestion
+# Data Ingestion Guide
 
-سیستم Data Ingestion برای دریافت داده‌های real-time از منابع مختلف طراحی شده است.
+The Data Ingestion system is designed to receive real-time data from various sources.
 
-## منابع داده پشتیبانی شده
+## Supported Data Sources
 
 ### 1. MQTT (IoT Sensors)
-برای دریافت داده از سنسورهای IoT که از پروتکل MQTT استفاده می‌کنند.
+For receiving data from IoT sensors that use the MQTT protocol.
 
 ### 2. OPC-UA (Industrial Systems)
-برای اتصال به سیستم‌های صنعتی که از پروتکل OPC-UA استفاده می‌کنند.
+For connecting to industrial systems that use the OPC-UA protocol.
 
 ### 3. REST API
-برای دریافت داده از طریق HTTP REST API.
+For receiving data via HTTP REST API.
 
-## معماری
+## Architecture
 
 ```
 [Data Sources] → [Ingestion Service] → [Kafka] → [Processing Pipeline]
@@ -23,7 +23,7 @@
   REST API       Quality Check
 ```
 
-## استفاده
+## Usage
 
 ### 1. REST API Ingestion
 
@@ -77,7 +77,7 @@ curl -X POST "http://localhost:8000/api/v1/ingestion/raw" \
 
 ### 2. MQTT Ingestion
 
-#### راه‌اندازی MQTT Broker (Mosquitto)
+#### Setting Up the MQTT Broker (Mosquitto)
 ```bash
 # Install Mosquitto
 sudo apt-get install mosquitto mosquitto-clients
@@ -86,18 +86,18 @@ sudo apt-get install mosquitto mosquitto-clients
 mosquitto -c /etc/mosquitto/mosquitto.conf
 ```
 
-#### راه‌اندازی MQTT Ingestion
+#### Setting Up MQTT Ingestion
 ```bash
 cd backend
 python scripts/start_mqtt_ingestion.py
 ```
 
-#### پیکربندی MQTT Topics
-MQTT client به صورت پیش‌فرض به این topics گوش می‌دهد:
+#### Configuring MQTT Topics
+The MQTT client listens to these topics by default:
 - `sensors/+/+` - sensors/well_id/sensor_type
 - `wells/+/data` - wells/well_id/data
 
-#### ارسال داده تست به MQTT
+#### Sending Test Data to MQTT
 ```bash
 mosquitto_pub -h localhost -t "sensors/Well_01/motor_temperature" \
   -m '{"well_id": "Well_01", "sensor_type": "motor_temperature", "sensor_value": 75.5}'
@@ -105,7 +105,7 @@ mosquitto_pub -h localhost -t "sensors/Well_01/motor_temperature" \
 
 ### 3. OPC-UA Ingestion
 
-#### راه‌اندازی OPC-UA Server (FreeOpcUa)
+#### Setting Up the OPC-UA Server (FreeOpcUa)
 ```bash
 # Install FreeOpcUa server
 pip install freeopcua
@@ -114,14 +114,14 @@ pip install freeopcua
 python -m opcua.server
 ```
 
-#### راه‌اندازی OPC-UA Ingestion
+#### Setting Up OPC-UA Ingestion
 ```bash
 cd backend
 python scripts/start_opcua_ingestion.py
 ```
 
-#### پیکربندی Node IDs
-در فایل `start_opcua_ingestion.py` می‌توانید Node IDs را تنظیم کنید:
+#### Configuring Node IDs
+In the `start_opcua_ingestion.py` file you can set the Node IDs:
 ```python
 node_ids = [
     "ns=2;s=Well_01.MotorTemperature",
@@ -131,13 +131,13 @@ node_ids = [
 
 ## Data Validation
 
-سیستم به صورت خودکار داده‌های دریافتی را validate می‌کند:
+The system automatically validates received data:
 
 ### Validation Rules
 - **Required Fields**: well_id, sensor_type, sensor_value
-- **Value Ranges**: بررسی محدوده مقادیر بر اساس نوع سنسور
-- **Format Validation**: بررسی فرمت well_id و timestamp
-- **Quality Score**: محاسبه نمره کیفیت داده (0-100)
+- **Value Ranges**: Checking value ranges based on sensor type
+- **Format Validation**: Checking the format of well_id and timestamp
+- **Quality Score**: Calculating the data quality score (0-100)
 
 ### Sensor Ranges
 ```python
@@ -153,16 +153,16 @@ node_ids = [
 
 ## Kafka Integration
 
-تمام داده‌های validated به Kafka ارسال می‌شوند:
+All validated data is sent to Kafka:
 
-- **Topic**: `sensor-data` (قابل تنظیم)
-- **Key**: well_id یا node_id
+- **Topic**: `sensor-data` (configurable)
+- **Key**: well_id or node_id
 - **Format**: JSON
 - **Compression**: gzip
 
 ## Statistics
 
-برای مشاهده آمار ingestion:
+To view ingestion statistics:
 
 ```bash
 curl -X GET "http://localhost:8000/api/v1/ingestion/stats" \
@@ -201,9 +201,9 @@ Ingest raw data in any format
 ### GET `/api/v1/ingestion/stats`
 Get ingestion statistics
 
-## پیکربندی
+## Configuration
 
-در فایل `.env`:
+In the `.env` file:
 ```env
 # Kafka
 KAFKA_BOOTSTRAP_SERVERS=localhost:9092
@@ -222,25 +222,25 @@ OPCUA_ENDPOINT_URL=opc.tcp://localhost:4840/freeopcua/server/
 ## Troubleshooting
 
 ### MQTT Connection Failed
-- بررسی کنید MQTT broker در حال اجرا باشد
-- بررسی firewall و port 1883
-- بررسی credentials
+- Check that the MQTT broker is running
+- Check the firewall and port 1883
+- Check the credentials
 
 ### OPC-UA Connection Failed
-- بررسی کنید OPC-UA server در حال اجرا باشد
-- بررسی endpoint URL
-- بررسی Node IDs
+- Check that the OPC-UA server is running
+- Check the endpoint URL
+- Check the Node IDs
 
 ### Kafka Send Failed
-- بررسی کنید Kafka broker در حال اجرا باشد
-- بررسی connection string
-- بررسی topic وجود دارد
+- Check that the Kafka broker is running
+- Check the connection string
+- Check that the topic exists
 
 ## Best Practices
 
-1. **Batch Processing**: برای داده‌های زیاد از batch endpoint استفاده کنید
-2. **Error Handling**: همیشه response را بررسی کنید
-3. **Monitoring**: آمار ingestion را به صورت منظم بررسی کنید
-4. **Validation**: داده‌ها را قبل از ارسال validate کنید
-5. **Retry Logic**: در صورت خطا، retry کنید
+1. **Batch Processing**: Use the batch endpoint for large volumes of data
+2. **Error Handling**: Always check the response
+3. **Monitoring**: Check ingestion statistics regularly
+4. **Validation**: Validate data before sending
+5. **Retry Logic**: Retry on error
 

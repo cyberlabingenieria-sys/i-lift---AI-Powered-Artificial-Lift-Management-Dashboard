@@ -1,6 +1,6 @@
-# API Endpoints برای Data
+# API Endpoints for Data
 
-راهنمای کامل API Endpoints برای کار با داده‌های سنسور
+Complete guide to API Endpoints for working with sensor data
 
 ## Base URL
 ```
@@ -8,26 +8,26 @@ http://localhost:8000/api/v1/sensors
 ```
 
 ## Authentication
-تمام endpointها نیاز به authentication دارند:
+All endpoints require authentication:
 ```
 Authorization: Bearer YOUR_ACCESS_TOKEN
 ```
 
 ## Endpoints
 
-### 1. دریافت لیست Sensor Readings
+### 1. Get the Sensor Readings List
 
 **GET** `/api/v1/sensors/`
 
-دریافت لیست readings با فیلتر و pagination
+Get the list of readings with filtering and pagination
 
 **Query Parameters:**
-- `well_id` (optional): فیلتر بر اساس well ID
-- `sensor_type` (optional): فیلتر بر اساس نوع سنسور
-- `start_time` (optional): زمان شروع (ISO format)
-- `end_time` (optional): زمان پایان (ISO format)
-- `limit` (default: 100, max: 1000): تعداد records
-- `offset` (default: 0): offset برای pagination
+- `well_id` (optional): filter by well ID
+- `sensor_type` (optional): filter by sensor type
+- `start_time` (optional): start time (ISO format)
+- `end_time` (optional): end time (ISO format)
+- `limit` (default: 100, max: 1000): number of records
+- `offset` (default: 0): offset for pagination
 
 **Example:**
 ```bash
@@ -56,15 +56,15 @@ curl -X GET "http://localhost:8000/api/v1/sensors/?well_id=Well_01&sensor_type=m
 }
 ```
 
-### 2. دریافت Latest Readings
+### 2. Get Latest Readings
 
 **GET** `/api/v1/sensors/latest`
 
-دریافت آخرین reading برای هر sensor
+Get the latest reading for each sensor
 
 **Query Parameters:**
-- `well_id` (optional): فیلتر بر اساس well ID
-- `sensor_type` (optional): فیلتر بر اساس نوع سنسور
+- `well_id` (optional): filter by well ID
+- `sensor_type` (optional): filter by sensor type
 
 **Example:**
 ```bash
@@ -72,14 +72,14 @@ curl -X GET "http://localhost:8000/api/v1/sensors/latest?well_id=Well_01" \
   -H "Authorization: Bearer TOKEN"
 ```
 
-### 3. دریافت Real-time Data
+### 3. Get Real-time Data
 
 **GET** `/api/v1/sensors/realtime`
 
-دریافت داده‌های real-time (cached, به‌روزرسانی هر 5 ثانیه)
+Get real-time data (cached, updated every 5 seconds)
 
 **Query Parameters:**
-- `well_id` (optional): فیلتر بر اساس well ID
+- `well_id` (optional): filter by well ID
 
 **Example:**
 ```bash
@@ -110,11 +110,11 @@ curl -X GET "http://localhost:8000/api/v1/sensors/realtime" \
 }
 ```
 
-### 4. ایجاد Sensor Reading
+### 4. Create a Sensor Reading
 
 **POST** `/api/v1/sensors/`
 
-ایجاد reading جدید
+Create a new reading
 
 **Request Body:**
 ```json
@@ -141,18 +141,18 @@ curl -X POST "http://localhost:8000/api/v1/sensors/" \
   }'
 ```
 
-### 5. دریافت Aggregated Data
+### 5. Get Aggregated Data
 
 **GET** `/api/v1/sensors/aggregated`
 
-دریافت داده‌های aggregated (hourly, daily, weekly)
+Get aggregated data (hourly, daily, weekly)
 
 **Query Parameters:**
 - `well_id` (required): Well ID
-- `sensor_type` (required): نوع سنسور
-- `start_time` (required): زمان شروع
-- `end_time` (required): زمان پایان
-- `aggregation` (default: "hourly"): نوع aggregation (hourly, daily, weekly)
+- `sensor_type` (required): sensor type
+- `start_time` (required): start time
+- `end_time` (required): end time
+- `aggregation` (default: "hourly"): aggregation type (hourly, daily, weekly)
 
 **Example:**
 ```bash
@@ -176,17 +176,17 @@ curl -X GET "http://localhost:8000/api/v1/sensors/aggregated?well_id=Well_01&sen
 ]
 ```
 
-### 6. دریافت Statistics
+### 6. Get Statistics
 
 **GET** `/api/v1/sensors/statistics`
 
-دریافت آمار برای sensor data
+Get statistics for sensor data
 
 **Query Parameters:**
-- `well_id` (optional): فیلتر بر اساس well ID
-- `sensor_type` (optional): فیلتر بر اساس نوع سنسور
-- `start_time` (optional): زمان شروع
-- `end_time` (optional): زمان پایان
+- `well_id` (optional): filter by well ID
+- `sensor_type` (optional): filter by sensor type
+- `start_time` (optional): start time
+- `end_time` (optional): end time
 
 **Example:**
 ```bash
@@ -215,15 +215,15 @@ curl -X GET "http://localhost:8000/api/v1/sensors/statistics?well_id=Well_01" \
 
 **GET** `/api/v1/sensors/export`
 
-Export داده‌ها به فرمت‌های مختلف
+Export data in various formats
 
 **Query Parameters:**
-- `well_id` (optional): فیلتر بر اساس well ID
-- `sensor_type` (optional): فیلتر بر اساس نوع سنسور
-- `start_time` (optional): زمان شروع
-- `end_time` (optional): زمان پایان
-- `format` (default: "csv"): فرمت export (csv, json, parquet)
-- `limit` (default: 10000, max: 100000): تعداد records
+- `well_id` (optional): filter by well ID
+- `sensor_type` (optional): filter by sensor type
+- `start_time` (optional): start time
+- `end_time` (optional): end time
+- `format` (default: "csv"): export format (csv, json, parquet)
+- `limit` (default: 10000, max: 100000): number of records
 
 **Example:**
 ```bash
@@ -245,18 +245,18 @@ curl -X GET "http://localhost:8000/api/v1/sensors/export?well_id=Well_01&format=
 
 ## Sensor Types
 
-سنسورهای پشتیبانی شده:
-- `motor_temperature` - دمای موتور (°C)
-- `intake_pressure` - فشار ورودی (psi)
-- `discharge_pressure` - فشار خروجی (psi)
-- `vibration` - ارتعاش (g)
-- `current` - جریان (A)
-- `flow_rate` - نرخ جریان (bpd)
+Supported sensors:
+- `motor_temperature` - motor temperature (°C)
+- `intake_pressure` - intake pressure (psi)
+- `discharge_pressure` - discharge pressure (psi)
+- `vibration` - vibration (g)
+- `current` - current (A)
+- `flow_rate` - flow rate (bpd)
 
 ## Permissions
 
-- `VIEW_SENSOR_DATA`: برای مشاهده داده‌ها
-- `CREATE_SENSOR_DATA`: برای ایجاد reading جدید
+- `VIEW_SENSOR_DATA`: to view data
+- `CREATE_SENSOR_DATA`: to create a new reading
 
 ## Error Responses
 
@@ -283,11 +283,11 @@ curl -X GET "http://localhost:8000/api/v1/sensors/export?well_id=Well_01&format=
 
 ## Best Practices
 
-1. **Pagination**: برای datasets بزرگ از `limit` و `offset` استفاده کنید
-2. **Caching**: از `/realtime` endpoint استفاده کنید که cached است
-3. **Aggregation**: برای داده‌های تاریخی از `/aggregated` استفاده کنید
-4. **Export**: برای export حجم زیاد، از Parquet استفاده کنید
-5. **Time Ranges**: محدوده زمانی را محدود کنید (max 1 year برای aggregated)
+1. **Pagination**: Use `limit` and `offset` for large datasets
+2. **Caching**: Use the `/realtime` endpoint, which is cached
+3. **Aggregation**: Use `/aggregated` for historical data
+4. **Export**: Use Parquet for exporting large volumes
+5. **Time Ranges**: Limit the time range (max 1 year for aggregated)
 
 ## Rate Limiting
 

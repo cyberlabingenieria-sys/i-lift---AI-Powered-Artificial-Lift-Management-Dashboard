@@ -1,6 +1,6 @@
-# API Endpoints برای ML & Predictions
+# API Endpoints for ML & Predictions
 
-راهنمای کامل API Endpoints برای Machine Learning و Predictions
+Complete guide to API Endpoints for Machine Learning and Predictions
 
 ## Base URL
 ```
@@ -8,23 +8,23 @@ http://localhost:8000/api/v1/ml
 ```
 
 ## Authentication
-تمام endpointها نیاز به authentication دارند:
+All endpoints require authentication:
 ```
 Authorization: Bearer YOUR_ACCESS_TOKEN
 ```
 
 ## Endpoints
 
-### 1. دریافت Predictions
+### 1. Get Predictions
 
 **GET** `/api/v1/ml/predictions`
 
-دریافت لیست predictions
+Get the list of predictions
 
 **Query Parameters:**
-- `well_id` (optional): فیلتر بر اساس well ID
-- `model_type` (optional): فیلتر بر اساس model type
-- `limit` (default: 100, max: 1000): تعداد predictions
+- `well_id` (optional): filter by well ID
+- `model_type` (optional): filter by model type
+- `limit` (default: 100, max: 1000): number of predictions
 
 **Example:**
 ```bash
@@ -51,11 +51,11 @@ curl -X GET "http://localhost:8000/api/v1/ml/predictions?well_id=Well_01&model_t
 ]
 ```
 
-### 2. ایجاد Prediction جدید
+### 2. Create a New Prediction
 
 **POST** `/api/v1/ml/predict`
 
-ایجاد prediction جدید
+Create a new prediction
 
 **Request Body:**
 ```json
@@ -69,9 +69,9 @@ curl -X GET "http://localhost:8000/api/v1/ml/predictions?well_id=Well_01&model_t
 ```
 
 **Model Types:**
-- `anomaly_detection`: تشخیص anomaly
-- `predictive_maintenance`: پیش‌بینی خرابی
-- `production_optimization`: بهینه‌سازی تولید
+- `anomaly_detection`: anomaly detection
+- `predictive_maintenance`: failure prediction
+- `production_optimization`: production optimization
 
 **Example:**
 ```bash
@@ -84,17 +84,17 @@ curl -X POST "http://localhost:8000/api/v1/ml/predict" \
   }'
 ```
 
-### 3. دریافت Anomalies
+### 3. Get Anomalies
 
 **GET** `/api/v1/ml/anomalies`
 
-دریافت anomalies تشخیص داده شده
+Get detected anomalies
 
 **Query Parameters:**
-- `well_id` (optional): فیلتر بر اساس well ID
-- `start_time` (optional): زمان شروع
-- `end_time` (optional): زمان پایان
-- `threshold` (default: 0.5): حد آستانه anomaly score
+- `well_id` (optional): filter by well ID
+- `start_time` (optional): start time
+- `end_time` (optional): end time
+- `threshold` (default: 0.5): anomaly score threshold
 
 **Example:**
 ```bash
@@ -119,14 +119,14 @@ curl -X GET "http://localhost:8000/api/v1/ml/anomalies?well_id=Well_01&threshold
 ]
 ```
 
-### 4. دریافت Real-time Anomalies
+### 4. Get Real-time Anomalies
 
 **GET** `/api/v1/ml/anomalies/realtime`
 
-دریافت anomalies در یک ساعت گذشته
+Get anomalies from the past hour
 
 **Query Parameters:**
-- `well_id` (optional): فیلتر بر اساس well ID
+- `well_id` (optional): filter by well ID
 
 **Example:**
 ```bash
@@ -134,15 +134,15 @@ curl -X GET "http://localhost:8000/api/v1/ml/anomalies/realtime" \
   -H "Authorization: Bearer TOKEN"
 ```
 
-### 5. دریافت Latest Predictions
+### 5. Get Latest Predictions
 
 **GET** `/api/v1/ml/predictions/latest`
 
-دریافت آخرین prediction برای هر well/model
+Get the latest prediction for each well/model
 
 **Query Parameters:**
-- `well_id` (optional): فیلتر بر اساس well ID
-- `model_type` (optional): فیلتر بر اساس model type
+- `well_id` (optional): filter by well ID
+- `model_type` (optional): filter by model type
 
 **Example:**
 ```bash
@@ -150,11 +150,11 @@ curl -X GET "http://localhost:8000/api/v1/ml/predictions/latest" \
   -H "Authorization: Bearer TOKEN"
 ```
 
-### 6. دریافت لیست Models
+### 6. Get the Models List
 
 **GET** `/api/v1/ml/models`
 
-دریافت لیست models موجود
+Get the list of available models
 
 **Example:**
 ```bash
@@ -177,18 +177,18 @@ curl -X GET "http://localhost:8000/api/v1/ml/models" \
 ]
 ```
 
-### 7. دریافت Model Performance
+### 7. Get Model Performance
 
 **GET** `/api/v1/ml/models/{model_type}/performance`
 
-دریافت معیارهای عملکرد model
+Get model performance metrics
 
 **Path Parameters:**
-- `model_type`: نوع model
+- `model_type`: model type
 
 **Query Parameters:**
-- `start_time` (optional): زمان شروع
-- `end_time` (optional): زمان پایان
+- `start_time` (optional): start time
+- `end_time` (optional): end time
 
 **Example:**
 ```bash
@@ -217,7 +217,7 @@ curl -X GET "http://localhost:8000/api/v1/ml/models/predictive_maintenance/perfo
 
 **POST** `/api/v1/ml/models/train`
 
-آموزش model جدید (admin only)
+Train a new model (admin only)
 
 **Request Body:**
 ```json
@@ -262,46 +262,46 @@ curl -X POST "http://localhost:8000/api/v1/ml/models/train" \
 ### 1. Anomaly Detection
 - **Type**: `anomaly_detection`
 - **Output**: Anomaly score (0-1)
-- **Use Case**: تشخیص anomalies در داده‌های سنسور
+- **Use Case**: Detecting anomalies in sensor data
 
 ### 2. Predictive Maintenance
 - **Type**: `predictive_maintenance`
 - **Output**: Failure probability (0-1)
-- **Use Case**: پیش‌بینی احتمال خرابی تجهیزات
+- **Use Case**: Predicting the probability of equipment failure
 
 ### 3. Production Optimization
 - **Type**: `production_optimization`
 - **Output**: Optimal value (e.g., optimal flow rate)
-- **Use Case**: بهینه‌سازی پارامترهای تولید
+- **Use Case**: Optimizing production parameters
 
 ## Prediction Types
 
-- `anomaly_score`: نمره anomaly (0-1)
-- `failure_probability`: احتمال خرابی (0-1)
-- `optimal_value`: مقدار بهینه
+- `anomaly_score`: anomaly score (0-1)
+- `failure_probability`: failure probability (0-1)
+- `optimal_value`: optimal value
 
 ## Features
 
-Features به صورت خودکار از آخرین sensor readings استخراج می‌شوند:
+Features are extracted automatically from the latest sensor readings:
 - Statistical features (mean, min, max, std)
 - Latest sensor values
 - Trend features
 
-همچنین می‌توانید features اضافی در request ارسال کنید.
+You can also send additional features in the request.
 
 ## Permissions
 
-- `VIEW_ML_PREDICTIONS`: برای مشاهده predictions
-- `CREATE_ML_PREDICTIONS`: برای ایجاد prediction
-- `TRAIN_MODELS`: برای آموزش models (admin only)
+- `VIEW_ML_PREDICTIONS`: to view predictions
+- `CREATE_ML_PREDICTIONS`: to create a prediction
+- `TRAIN_MODELS`: to train models (admin only)
 
 ## Best Practices
 
-1. **Caching**: از `/predictions/latest` برای real-time استفاده کنید
-2. **Threshold**: threshold مناسب برای anomalies تنظیم کنید
-3. **Features**: features اضافی را در صورت نیاز ارسال کنید
-4. **Monitoring**: model performance را به صورت منظم بررسی کنید
-5. **Training**: models را به صورت دوره‌ای retrain کنید
+1. **Caching**: Use `/predictions/latest` for real-time
+2. **Threshold**: Set an appropriate threshold for anomalies
+3. **Features**: Send additional features if needed
+4. **Monitoring**: Check model performance regularly
+5. **Training**: Retrain models periodically
 
 ## Error Responses
 

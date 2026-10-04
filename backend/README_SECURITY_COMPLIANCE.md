@@ -1,46 +1,46 @@
-# Security و Compliance
+# Security and Compliance
 
-راهنمای کامل Security و Compliance features
+Complete guide to Security and Compliance features
 
 ## Overview
 
-سیستم Security و Compliance شامل:
-- **Audit Logging**: ثبت تمام فعالیت‌های امنیتی
-- **Encryption**: رمزنگاری داده‌های حساس
-- **Security Policies**: مدیریت سیاست‌های امنیتی
-- **Compliance Reporting**: گزارش‌های compliance
-- **Access Control**: کنترل دسترسی پیشرفته
+The Security and Compliance system includes:
+- **Audit Logging**: Recording all security activities
+- **Encryption**: Encryption of sensitive data
+- **Security Policies**: Managing security policies
+- **Compliance Reporting**: Compliance reports
+- **Access Control**: Advanced access control
 
 ## Audit Logging
 
 ### Event Types
 
-سیستم تمام eventهای زیر را ثبت می‌کند:
+The system records all of the following events:
 
 #### Authentication Events:
-- `login`: ورود موفق
-- `logout`: خروج
-- `login_failed`: ورود ناموفق
-- `password_change`: تغییر رمز عبور
-- `token_refresh`: تمدید token
+- `login`: successful login
+- `logout`: logout
+- `login_failed`: failed login
+- `password_change`: password change
+- `token_refresh`: token renewal
 
 #### Data Access Events:
-- `data_view`: مشاهده داده
-- `data_create`: ایجاد داده
-- `data_update`: به‌روزرسانی داده
-- `data_delete`: حذف داده
-- `data_export`: export داده
+- `data_view`: data view
+- `data_create`: data creation
+- `data_update`: data update
+- `data_delete`: data deletion
+- `data_export`: data export
 
 #### User Management Events:
-- `user_create`: ایجاد کاربر
-- `user_update`: به‌روزرسانی کاربر
-- `user_delete`: حذف کاربر
-- `role_change`: تغییر نقش
+- `user_create`: user creation
+- `user_update`: user update
+- `user_delete`: user deletion
+- `role_change`: role change
 
 #### Security Events:
-- `permission_denied`: دسترسی رد شده
-- `unauthorized_access`: دسترسی غیرمجاز
-- `suspicious_activity`: فعالیت مشکوک
+- `permission_denied`: permission denied
+- `unauthorized_access`: unauthorized access
+- `suspicious_activity`: suspicious activity
 
 ### Audit Log Schema
 
@@ -65,33 +65,33 @@ CREATE TABLE audit_logs (
 
 ### Password Policy
 
-- **Min Length**: حداقل 8 کاراکتر
-- **Require Uppercase**: نیاز به حروف بزرگ
-- **Require Lowercase**: نیاز به حروف کوچک
-- **Require Numbers**: نیاز به اعداد
-- **Require Special Chars**: نیاز به کاراکترهای خاص
-- **Max Age**: 90 روز
-- **History Count**: 5 رمز عبور قبلی
+- **Min Length**: At least 8 characters
+- **Require Uppercase**: Requires uppercase letters
+- **Require Lowercase**: Requires lowercase letters
+- **Require Numbers**: Requires numbers
+- **Require Special Chars**: Requires special characters
+- **Max Age**: 90 days
+- **History Count**: 5 previous passwords
 
 ### Session Policy
 
-- **Timeout**: 30 دقیقه
+- **Timeout**: 30 minutes
 - **Max Concurrent Sessions**: 5
-- **Require HTTPS**: بله
+- **Require HTTPS**: Yes
 - **Same Site**: Strict
 
 ### Data Retention Policy
 
-- **Sensor Data**: 365 روز
-- **Audit Logs**: 2555 روز (7 سال)
-- **Alerts**: 180 روز
-- **ML Predictions**: 365 روز
+- **Sensor Data**: 365 days
+- **Audit Logs**: 2555 days (7 years)
+- **Alerts**: 180 days
+- **ML Predictions**: 365 days
 
 ### Access Control Policy
 
-- **Require MFA**: خیر (قابل تنظیم)
-- **IP Whitelist**: لیست IPهای مجاز
-- **IP Blacklist**: لیست IPهای غیرمجاز
+- **Require MFA**: No (configurable)
+- **IP Whitelist**: List of allowed IPs
+- **IP Blacklist**: List of disallowed IPs
 - **Rate Limit**: 100 request per minute
 
 ## Encryption
@@ -99,7 +99,7 @@ CREATE TABLE audit_logs (
 ### Encryption Service
 
 - **Algorithm**: Fernet (symmetric encryption)
-- **Key Management**: از environment variable یا generate
+- **Key Management**: From an environment variable or generated
 - **Sensitive Fields**: password, token, secret, api_key, credential
 
 ### Usage
@@ -126,9 +126,9 @@ encrypted_dict = encryption.encrypt_dict({
 
 ### Report Types
 
-1. **Full Report**: گزارش کامل با تمام sections
-2. **Summary Report**: خلاصه گزارش
-3. **Detailed Report**: گزارش تفصیلی
+1. **Full Report**: Complete report with all sections
+2. **Summary Report**: Report summary
+3. **Detailed Report**: Detailed report
 
 ### Report Sections
 
@@ -215,7 +215,7 @@ Update security policy (admin only)
 
 ## Security Headers
 
-تمام responses شامل security headers زیر هستند:
+All responses include the following security headers:
 
 - `X-Content-Type-Options: nosniff`
 - `X-Frame-Options: DENY`
@@ -226,30 +226,30 @@ Update security policy (admin only)
 ## Rate Limiting
 
 - **Default**: 100 requests per minute per IP
-- **Configurable**: از طریق security policy
+- **Configurable**: Through the security policy
 - **Implementation**: RateLimitMiddleware
 
 ## Best Practices
 
-1. **Audit Logging**: تمام actions مهم را log کنید
-2. **Password Policy**: از password policy قوی استفاده کنید
-3. **Encryption**: داده‌های حساس را encrypt کنید
-4. **Session Management**: session timeout را تنظیم کنید
-5. **Compliance Reports**: به صورت منظم گزارش‌ها را بررسی کنید
-6. **Suspicious Activity**: فعالیت‌های مشکوک را monitor کنید
+1. **Audit Logging**: Log all important actions
+2. **Password Policy**: Use a strong password policy
+3. **Encryption**: Encrypt sensitive data
+4. **Session Management**: Set the session timeout
+5. **Compliance Reports**: Review reports regularly
+6. **Suspicious Activity**: Monitor suspicious activity
 
 ## Compliance Standards
 
-سیستم برای compliance با استانداردهای زیر طراحی شده:
+The system is designed for compliance with the following standards:
 
-- **GDPR**: Data protection و privacy
+- **GDPR**: Data protection and privacy
 - **SOC 2**: Security controls
 - **ISO 27001**: Information security
 - **NIST**: Cybersecurity framework
 
 ## Data Retention
 
-سیاست‌های retention برای انواع داده:
+Retention policies for data types:
 
 - **Sensor Data**: 1 year
 - **Audit Logs**: 7 years (compliance requirement)
@@ -260,29 +260,29 @@ Update security policy (admin only)
 
 ### Suspicious Activity Detection
 
-سیستم به صورت خودکار موارد زیر را detect می‌کند:
+The system automatically detects the following:
 
-1. **Multiple Failed Logins**: بیش از 5 بار در 24 ساعت
-2. **Excessive Permission Denials**: بیش از 10 بار در 24 ساعت
-3. **Unusual Activity Volume**: بیش از 1000 event در 24 ساعت
+1. **Multiple Failed Logins**: More than 5 times in 24 hours
+2. **Excessive Permission Denials**: More than 10 times in 24 hours
+3. **Unusual Activity Volume**: More than 1000 events in 24 hours
 
 ### Alerts
 
-برای هر suspicious activity یک alert ایجاد می‌شود.
+An alert is created for each suspicious activity.
 
 ## Integration
 
-### با Authentication:
+### With Authentication:
 - Login/logout events logged
 - Failed login attempts tracked
 - Password changes audited
 
-### با Data Access:
+### With Data Access:
 - All data operations logged
 - Export operations tracked
 - Permission denials recorded
 
-### با User Management:
+### With User Management:
 - User creation/deletion logged
 - Role changes audited
 - User updates tracked

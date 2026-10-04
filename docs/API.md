@@ -8,7 +8,7 @@ http://localhost:8000/api/v1
 
 ## Authentication
 
-تمام API endpoints (به جز `/auth/login` و `/auth/register`) نیاز به authentication دارند.
+All API endpoints (except `/auth/login` and `/auth/register`) require authentication.
 
 ### Authentication Header
 
@@ -331,7 +331,7 @@ Authorization: Bearer <admin_token>
 
 ## Pagination
 
-تمام endpoints که لیست برمی‌گردانند از pagination پشتیبانی می‌کنند.
+All endpoints that return a list support pagination.
 
 ### Query Parameters
 
@@ -357,7 +357,7 @@ Authorization: Bearer <admin_token>
 
 ## Interactive API Documentation
 
-برای مستندات تعاملی و تست API:
+For interactive documentation and API testing:
 
 - **Swagger UI**: http://localhost:8000/docs
 - **ReDoc**: http://localhost:8000/redoc

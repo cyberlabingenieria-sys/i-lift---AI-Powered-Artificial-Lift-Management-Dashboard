@@ -2,13 +2,13 @@
 
 ## Overview
 
-این راهنما مراحل استقرار IntelliLift AI Dashboard را در محیط production توضیح می‌دهد.
+This guide explains the steps for deploying the IntelliLift AI Dashboard in a production environment.
 
-## پیش‌نیازها
+## Prerequisites
 
 ### Infrastructure Requirements
 
-- **Server**: Ubuntu 20.04+ یا CentOS 8+
+- **Server**: Ubuntu 20.04+ or CentOS 8+
 - **CPU**: 4+ cores
 - **RAM**: 16GB+ (32GB recommended)
 - **Storage**: 500GB+ SSD
@@ -20,7 +20,7 @@
 - Docker Compose 2.0+
 - PostgreSQL 15+ with TimescaleDB
 - Redis 7+
-- Nginx (برای reverse proxy)
+- Nginx (for reverse proxy)
 
 ## Deployment Options
 
@@ -413,7 +413,7 @@ docker volume prune
 
 ## Support
 
-برای مشکلات deployment:
+For deployment issues:
 - Check logs: `docker-compose logs`
 - Review documentation
 - Contact support team

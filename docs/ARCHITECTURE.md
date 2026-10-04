@@ -2,7 +2,7 @@
 
 ## Overview
 
-IntelliLift AI Dashboard یک سیستم توزیع‌شده با معماری microservices است که برای پردازش real-time داده‌های سنسور و ارائه تحلیل‌های هوشمند طراحی شده است.
+IntelliLift AI Dashboard is a distributed system with a microservices architecture designed for real-time processing of sensor data and providing intelligent analytics.
 
 ## System Architecture
 
@@ -44,9 +44,9 @@ IntelliLift AI Dashboard یک سیستم توزیع‌شده با معماری m
 - Kafka Producer
 
 **Responsibilities:**
-- دریافت داده از منابع مختلف
-- اعتبارسنجی اولیه
-- ارسال به Kafka
+- Receiving data from various sources
+- Initial validation
+- Sending to Kafka
 
 #### 2. Data Processing Layer
 
@@ -58,10 +58,10 @@ IntelliLift AI Dashboard یک سیستم توزیع‌شده با معماری m
 - Database Writer
 
 **Responsibilities:**
-- پردازش real-time داده‌ها
-- استخراج ویژگی‌ها
-- اعتبارسنجی و پاکسازی
-- ذخیره در دیتابیس
+- Real-time data processing
+- Feature extraction
+- Validation and cleaning
+- Storing in the database
 
 #### 3. ML/AI Layer
 
@@ -72,10 +72,10 @@ IntelliLift AI Dashboard یک سیستم توزیع‌شده با معماری m
 - Training Pipeline
 
 **Responsibilities:**
-- تشخیص ناهنجاری‌ها
-- پیش‌بینی خرابی
-- سرویس‌دهی مدل‌ها
-- آموزش مدل‌ها
+- Anomaly detection
+- Failure prediction
+- Model serving
+- Train models
 
 #### 4. Application Layer
 
@@ -86,10 +86,10 @@ IntelliLift AI Dashboard یک سیستم توزیع‌شده با معماری m
 - Notification Service
 
 **Responsibilities:**
-- ارائه API
-- رابط کاربری
-- مدیریت alerts
-- ارسال notifications
+- Providing the API
+- User interface
+- Alert management
+- Sending notifications
 
 #### 5. Storage Layer
 
@@ -100,7 +100,7 @@ IntelliLift AI Dashboard یک سیستم توزیع‌شده با معماری m
 - S3 (Data lake - future)
 
 **Responsibilities:**
-- ذخیره داده‌های time-series
+- Storing time-series data
 - Caching
 - Message queuing
 - Long-term storage

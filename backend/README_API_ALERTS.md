@@ -1,6 +1,6 @@
-# API Endpoints برای Alerts
+# API Endpoints for Alerts
 
-راهنمای کامل API Endpoints برای مدیریت Alerts
+Complete guide to API Endpoints for managing Alerts
 
 ## Base URL
 ```
@@ -8,28 +8,28 @@ http://localhost:8000/api/v1/alerts
 ```
 
 ## Authentication
-تمام endpointها نیاز به authentication دارند:
+All endpoints require authentication:
 ```
 Authorization: Bearer YOUR_ACCESS_TOKEN
 ```
 
 ## Endpoints
 
-### 1. دریافت لیست Alerts
+### 1. Get the Alerts List
 
 **GET** `/api/v1/alerts/`
 
-دریافت لیست alerts با فیلتر و pagination
+Get the list of alerts with filtering and pagination
 
 **Query Parameters:**
-- `well_id` (optional): فیلتر بر اساس well ID
-- `severity` (optional): فیلتر بر اساس severity (low, medium, high, critical)
-- `resolved` (optional): فیلتر بر اساس resolved status (true/false)
-- `alert_type` (optional): فیلتر بر اساس alert type
-- `start_time` (optional): زمان شروع
-- `end_time` (optional): زمان پایان
-- `limit` (default: 100, max: 1000): تعداد alerts
-- `offset` (default: 0): offset برای pagination
+- `well_id` (optional): filter by well ID
+- `severity` (optional): filter by severity (low, medium, high, critical)
+- `resolved` (optional): filter by resolved status (true/false)
+- `alert_type` (optional): filter by alert type
+- `start_time` (optional): start time
+- `end_time` (optional): end time
+- `limit` (default: 100, max: 1000): number of alerts
+- `offset` (default: 0): offset for pagination
 
 **Example:**
 ```bash
@@ -59,15 +59,15 @@ curl -X GET "http://localhost:8000/api/v1/alerts/?well_id=Well_01&severity=criti
 }
 ```
 
-### 2. دریافت Unresolved Alerts
+### 2. Get Unresolved Alerts
 
 **GET** `/api/v1/alerts/unresolved`
 
-دریافت alerts حل نشده (cached, 30 ثانیه)
+Get unresolved alerts (cached, 30 seconds)
 
 **Query Parameters:**
-- `well_id` (optional): فیلتر بر اساس well ID
-- `severity` (optional): فیلتر بر اساس severity
+- `well_id` (optional): filter by well ID
+- `severity` (optional): filter by severity
 
 **Example:**
 ```bash
@@ -75,14 +75,14 @@ curl -X GET "http://localhost:8000/api/v1/alerts/unresolved?severity=critical" \
   -H "Authorization: Bearer TOKEN"
 ```
 
-### 3. دریافت Critical Alerts
+### 3. Get Critical Alerts
 
 **GET** `/api/v1/alerts/critical`
 
-دریافت critical alerts حل نشده
+Get unresolved critical alerts
 
 **Query Parameters:**
-- `well_id` (optional): فیلتر بر اساس well ID
+- `well_id` (optional): filter by well ID
 
 **Example:**
 ```bash
@@ -90,11 +90,11 @@ curl -X GET "http://localhost:8000/api/v1/alerts/critical" \
   -H "Authorization: Bearer TOKEN"
 ```
 
-### 4. دریافت Alert بر اساس ID
+### 4. Get an Alert by ID
 
 **GET** `/api/v1/alerts/{alert_id}`
 
-دریافت alert خاص
+Get a specific alert
 
 **Example:**
 ```bash
@@ -102,11 +102,11 @@ curl -X GET "http://localhost:8000/api/v1/alerts/uuid" \
   -H "Authorization: Bearer TOKEN"
 ```
 
-### 5. ایجاد Alert جدید
+### 5. Create a New Alert
 
 **POST** `/api/v1/alerts/`
 
-ایجاد alert جدید
+Create a new alert
 
 **Request Body:**
 ```json
@@ -136,7 +136,7 @@ curl -X POST "http://localhost:8000/api/v1/alerts/" \
 
 **POST** `/api/v1/alerts/{alert_id}/resolve`
 
-حل کردن یک alert
+Resolve an alert
 
 **Example:**
 ```bash
@@ -162,7 +162,7 @@ curl -X POST "http://localhost:8000/api/v1/alerts/uuid/resolve" \
 
 **POST** `/api/v1/alerts/bulk-resolve`
 
-حل کردن چند alert به صورت همزمان (max 100)
+Resolve several alerts at once (max 100)
 
 **Request Body:**
 ```json
@@ -192,11 +192,11 @@ curl -X POST "http://localhost:8000/api/v1/alerts/bulk-resolve" \
 }
 ```
 
-### 8. حذف Alert
+### 8. Delete an Alert
 
 **DELETE** `/api/v1/alerts/{alert_id}`
 
-حذف alert (admin only)
+Delete an alert (admin only)
 
 **Example:**
 ```bash
@@ -204,17 +204,17 @@ curl -X DELETE "http://localhost:8000/api/v1/alerts/uuid" \
   -H "Authorization: Bearer ADMIN_TOKEN"
 ```
 
-### 9. دریافت Alert Statistics
+### 9. Get Alert Statistics
 
 **GET** `/api/v1/alerts/statistics/summary`
 
-دریافت آمار alerts
+Get alert statistics
 
 **Query Parameters:**
-- `well_id` (optional): فیلتر بر اساس well ID
-- `start_time` (optional): زمان شروع
-- `end_time` (optional): زمان پایان
-- `days` (default: 30, max: 365): تعداد روزها
+- `well_id` (optional): filter by well ID
+- `start_time` (optional): start time
+- `end_time` (optional): end time
+- `days` (default: 30, max: 365): number of days
 
 **Example:**
 ```bash
@@ -252,15 +252,15 @@ curl -X GET "http://localhost:8000/api/v1/alerts/statistics/summary?days=7" \
 }
 ```
 
-### 10. دریافت Real-time Alert Count
+### 10. Get Real-time Alert Count
 
 **GET** `/api/v1/alerts/realtime/count`
 
-دریافت تعداد alerts در real-time (cached)
+Get the number of alerts in real time (cached)
 
 **Query Parameters:**
-- `well_id` (optional): فیلتر بر اساس well ID
-- `severity` (optional): فیلتر بر اساس severity
+- `well_id` (optional): filter by well ID
+- `severity` (optional): filter by severity
 
 **Example:**
 ```bash
@@ -284,39 +284,39 @@ curl -X GET "http://localhost:8000/api/v1/alerts/realtime/count" \
 
 ## Alert Types
 
-انواع alerts پشتیبانی شده:
-- `temperature_high`: دمای بالا
-- `temperature_low`: دمای پایین
-- `pressure_high`: فشار بالا
-- `pressure_low`: فشار پایین
-- `vibration_high`: ارتعاش بالا
-- `current_high`: جریان بالا
-- `flow_low`: جریان پایین
-- `anomaly_detected`: anomaly تشخیص داده شده
-- `equipment_failure`: خرابی تجهیزات
-- `maintenance_due`: نیاز به maintenance
+Supported alert types:
+- `temperature_high`: high temperature
+- `temperature_low`: low temperature
+- `pressure_high`: high pressure
+- `pressure_low`: low pressure
+- `vibration_high`: high vibration
+- `current_high`: high current
+- `flow_low`: low flow
+- `anomaly_detected`: anomaly detected
+- `equipment_failure`: equipment failure
+- `maintenance_due`: maintenance due
 
 ## Severity Levels
 
-- `low`: کم (نیاز به توجه)
-- `medium`: متوسط (نیاز به بررسی)
-- `high`: بالا (نیاز به اقدام فوری)
-- `critical`: بحرانی (نیاز به اقدام فوری)
+- `low`: low (needs attention)
+- `medium`: medium (needs review)
+- `high`: high (needs immediate action)
+- `critical`: critical (needs immediate action)
 
 ## Permissions
 
-- `VIEW_ALERTS`: برای مشاهده alerts
-- `CREATE_ALERTS`: برای ایجاد alert
-- `RESOLVE_ALERTS`: برای حل کردن alerts
-- Admin: برای حذف alerts
+- `VIEW_ALERTS`: to view alerts
+- `CREATE_ALERTS`: to create an alert
+- `RESOLVE_ALERTS`: to resolve alerts
+- Admin: to delete alerts
 
 ## Best Practices
 
-1. **Caching**: از `/unresolved` endpoint استفاده کنید که cached است
-2. **Filtering**: از فیلترها برای کاهش حجم داده استفاده کنید
-3. **Bulk Operations**: برای resolve کردن چند alert از bulk endpoint استفاده کنید
-4. **Monitoring**: alert statistics را به صورت منظم بررسی کنید
-5. **Real-time**: از `/realtime/count` برای dashboard استفاده کنید
+1. **Caching**: Use the `/unresolved` endpoint, which is cached
+2. **Filtering**: Use filters to reduce data volume
+3. **Bulk Operations**: Use the bulk endpoint to resolve several alerts
+4. **Monitoring**: Check alert statistics regularly
+5. **Real-time**: Use `/realtime/count` for the dashboard
 
 ## Error Responses
 
@@ -343,18 +343,18 @@ curl -X GET "http://localhost:8000/api/v1/alerts/realtime/count" \
 
 ## Alert Lifecycle
 
-1. **Created**: Alert ایجاد می‌شود
-2. **Active**: Alert فعال است (unresolved)
-3. **Resolved**: Alert حل می‌شود (resolved_at set)
-4. **Deleted**: Alert حذف می‌شود (admin only)
+1. **Created**: The alert is created
+2. **Active**: The alert is active (unresolved)
+3. **Resolved**: The alert is resolved (resolved_at set)
+4. **Deleted**: The alert is deleted (admin only)
 
-## Integration با سایر Components
+## Integration with Other Components
 
-### با ML Service:
-- ML predictions می‌توانند alerts ایجاد کنند
-- Anomaly detection alerts به صورت خودکار ایجاد می‌شوند
+### With ML Service:
+- ML predictions can create alerts
+- Anomaly detection alerts are created automatically
 
-### با Sensor Service:
-- Sensor readings می‌توانند triggers برای alerts باشند
-- Threshold-based alerts از sensor values استفاده می‌کنند
+### With Sensor Service:
+- Sensor readings can be triggers for alerts
+- Threshold-based alerts use sensor values
 

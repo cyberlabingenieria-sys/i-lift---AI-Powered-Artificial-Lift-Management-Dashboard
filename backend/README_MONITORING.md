@@ -1,63 +1,63 @@
-# Monitoring و Observability
+# Monitoring and Observability
 
-راهنمای کامل Monitoring و Observability features
+Complete guide to Monitoring and Observability features
 
 ## Overview
 
-سیستم Monitoring و Observability شامل:
-- **Metrics Collection**: جمع‌آوری metrics با Prometheus
-- **Health Checks**: بررسی سلامت سرویس‌ها
-- **System Monitoring**: مانیتورینگ منابع سیستم
-- **Business Metrics**: metrics مربوط به business
-- **Logging**: ثبت و مدیریت لاگ‌ها
-- **Tracing**: ردیابی درخواست‌ها
+The Monitoring and Observability system includes:
+- **Metrics Collection**: Collecting metrics with Prometheus
+- **Health Checks**: Service health checks
+- **System Monitoring**: System resource monitoring
+- **Business Metrics**: Business-related metrics
+- **Logging**: Recording and managing logs
+- **Tracing**: Request tracing
 
 ## Metrics Collection
 
 ### Prometheus Integration
 
-سیستم از Prometheus برای جمع‌آوری metrics استفاده می‌کند.
+The system uses Prometheus to collect metrics.
 
 #### HTTP Metrics:
-- `http_requests_total`: تعداد کل درخواست‌های HTTP
-- `http_request_duration_seconds`: مدت زمان درخواست‌های HTTP
-- `http_request_size_bytes`: حجم درخواست‌های HTTP
+- `http_requests_total`: total number of HTTP requests
+- `http_request_duration_seconds`: duration of HTTP requests
+- `http_request_size_bytes`: size of HTTP requests
 
 #### Business Metrics:
-- `sensor_readings_total`: تعداد کل خوانش‌های سنسور
-- `alerts_total`: تعداد کل alertها
-- `ml_predictions_total`: تعداد کل پیش‌بینی‌های ML
+- `sensor_readings_total`: total number of sensor readings
+- `alerts_total`: total number of alerts
+- `ml_predictions_total`: total number of ML predictions
 
 #### System Metrics:
-- `active_wells`: تعداد چاه‌های فعال
-- `active_sensors`: تعداد سنسورهای فعال
-- `active_alerts`: تعداد alertهای فعال
-- `data_ingestion_rate`: نرخ ingestion داده
+- `active_wells`: number of active wells
+- `active_sensors`: number of active sensors
+- `active_alerts`: number of active alerts
+- `data_ingestion_rate`: data ingestion rate
 
 #### Database Metrics:
-- `db_query_duration_seconds`: مدت زمان queryهای دیتابیس
-- `db_connections_active`: اتصالات فعال دیتابیس
-- `db_connections_idle`: اتصالات idle دیتابیس
+- `db_query_duration_seconds`: duration of database queries
+- `db_connections_active`: active database connections
+- `db_connections_idle`: idle database connections
 
 #### Kafka Metrics:
-- `kafka_messages_produced`: تعداد پیام‌های تولید شده
-- `kafka_messages_consumed`: تعداد پیام‌های مصرف شده
-- `kafka_consumer_lag`: lag مصرف‌کننده Kafka
+- `kafka_messages_produced`: number of produced messages
+- `kafka_messages_consumed`: number of consumed messages
+- `kafka_consumer_lag`: Kafka consumer lag
 
 #### Redis Metrics:
-- `redis_operations_total`: تعداد کل عملیات Redis
-- `redis_cache_hits`: تعداد cache hitها
-- `redis_cache_misses`: تعداد cache missها
+- `redis_operations_total`: total number of Redis operations
+- `redis_cache_hits`: number of cache hits
+- `redis_cache_misses`: number of cache misses
 
 ### Accessing Metrics
 
-برای دسترسی به Prometheus metrics:
+To access Prometheus metrics:
 
 ```bash
 GET /api/v1/monitoring/metrics
 ```
 
-این endpoint metrics را در فرمت Prometheus text format برمی‌گرداند.
+This endpoint returns metrics in the Prometheus text format.
 
 ## Health Checks
 
@@ -73,7 +73,7 @@ GET /api/v1/monitoring/health
 GET /api/v1/monitoring/health/detailed?include_system=true
 ```
 
-این endpoint سلامت تمام سرویس‌ها را بررسی می‌کند:
+This endpoint checks the health of all services:
 - Database
 - Redis
 - Kafka
@@ -85,7 +85,7 @@ GET /api/v1/monitoring/health/detailed?include_system=true
 GET /api/v1/monitoring/health/summary
 ```
 
-برای dashboard - خلاصه سلامت سیستم
+For the dashboard - system health summary
 
 ### Health Check Response
 
@@ -124,10 +124,10 @@ GET /api/v1/monitoring/health/summary
 
 ### System Resources
 
-سیستم منابع زیر را مانیتور می‌کند:
-- **CPU**: درصد استفاده CPU
-- **Memory**: استفاده از حافظه
-- **Disk**: استفاده از دیسک
+The system monitors the following resources:
+- **CPU**: CPU usage percentage
+- **Memory**: Memory usage
+- **Disk**: Disk usage
 
 ### Accessing System Metrics
 
@@ -204,15 +204,15 @@ GET /api/v1/monitoring/metrics/summary
 
 ### Structured Logging
 
-سیستم از structured logging با structlog استفاده می‌کند.
+The system uses structured logging with structlog.
 
 ### Log Levels
 
-- **DEBUG**: اطلاعات debug
-- **INFO**: اطلاعات عمومی
-- **WARNING**: هشدارها
-- **ERROR**: خطاها
-- **CRITICAL**: خطاهای بحرانی
+- **DEBUG**: Debug information
+- **INFO**: General information
+- **WARNING**: Warnings
+- **ERROR**: Errors
+- **CRITICAL**: Critical errors
 
 ### Accessing Logs
 
@@ -229,7 +229,7 @@ GET /api/v1/monitoring/logs?level=ERROR&hours=24&limit=100
 
 ### Distributed Tracing
 
-سیستم از distributed tracing برای ردیابی درخواست‌ها استفاده می‌کند.
+The system uses distributed tracing to trace requests.
 
 ### Accessing Traces
 
@@ -247,7 +247,7 @@ GET /api/v1/monitoring/tracing?service=backend&hours=1&limit=50
 
 ### Metrics Middleware
 
-`LoggingMiddleware` به صورت خودکار metrics را ثبت می‌کند:
+`LoggingMiddleware` automatically records metrics:
 - HTTP request metrics
 - Response time
 - Status codes
@@ -323,7 +323,7 @@ scrape_configs:
 
 ### Metrics-Based Alerts
 
-می‌توانید alertهای Prometheus بر اساس metrics ایجاد کنید:
+You can create Prometheus alerts based on metrics:
 
 ```yaml
 groups:
@@ -350,12 +350,12 @@ groups:
 
 ## Best Practices
 
-1. **Metrics Collection**: تمام عملیات مهم را instrument کنید
-2. **Health Checks**: health check endpoints را به صورت منظم بررسی کنید
-3. **Alerting**: alertهای مناسب برای metrics مهم تنظیم کنید
-4. **Dashboard**: dashboardهای Grafana برای visualization ایجاد کنید
-5. **Logging**: از structured logging استفاده کنید
-6. **Tracing**: برای debugging از distributed tracing استفاده کنید
+1. **Metrics Collection**: Instrument all important operations
+2. **Health Checks**: Check health check endpoints regularly
+3. **Alerting**: Set up appropriate alerts for important metrics
+4. **Dashboard**: Create Grafana dashboards for visualization
+5. **Logging**: Use structured logging
+6. **Tracing**: Use distributed tracing for debugging
 
 ## Monitoring Stack
 
@@ -363,14 +363,14 @@ groups:
 
 - **Metrics**: Prometheus
 - **Visualization**: Grafana
-- **Logging**: ELK Stack یا Loki
-- **Tracing**: Jaeger یا Zipkin
+- **Logging**: ELK Stack or Loki
+- **Tracing**: Jaeger or Zipkin
 - **Alerting**: Alertmanager
 
 ## Performance Considerations
 
-1. **Metrics Collection**: metrics collection overhead را minimize کنید
-2. **Sampling**: برای high-volume metrics از sampling استفاده کنید
-3. **Retention**: retention policy مناسب برای metrics تنظیم کنید
-4. **Cardinality**: از high cardinality labels اجتناب کنید
+1. **Metrics Collection**: Minimize metrics collection overhead
+2. **Sampling**: Use sampling for high-volume metrics
+3. **Retention**: Set an appropriate retention policy for metrics
+4. **Cardinality**: Avoid high-cardinality labels
 

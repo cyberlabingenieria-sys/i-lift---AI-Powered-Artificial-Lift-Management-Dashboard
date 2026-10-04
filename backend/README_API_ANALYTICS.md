@@ -1,6 +1,6 @@
-# API Endpoints برای Analytics
+# API Endpoints for Analytics
 
-راهنمای کامل API Endpoints برای Analytics و KPI
+Complete guide to API Endpoints for Analytics and KPI
 
 ## Base URL
 ```
@@ -8,23 +8,23 @@ http://localhost:8000/api/v1/analytics
 ```
 
 ## Authentication
-تمام endpointها نیاز به authentication دارند:
+All endpoints require authentication:
 ```
 Authorization: Bearer YOUR_ACCESS_TOKEN
 ```
 
 ## Endpoints
 
-### 1. دریافت KPI Analytics
+### 1. Get KPI Analytics
 
 **GET** `/api/v1/analytics/kpi`
 
-دریافت KPI analytics برای چاه‌ها
+Get KPI analytics for wells
 
 **Query Parameters:**
-- `well_id` (optional): فیلتر بر اساس well ID
-- `start_time` (optional): زمان شروع (ISO format)
-- `end_time` (optional): زمان پایان (ISO format)
+- `well_id` (optional): filter by well ID
+- `start_time` (optional): start time (ISO format)
+- `end_time` (optional): end time (ISO format)
 
 **Example:**
 ```bash
@@ -54,16 +54,16 @@ curl -X GET "http://localhost:8000/api/v1/analytics/kpi?well_id=Well_01" \
 }
 ```
 
-### 2. دریافت Trend Analysis
+### 2. Get Trend Analysis
 
 **GET** `/api/v1/analytics/trends`
 
-تحلیل روند برای یک metric
+Trend analysis for a metric
 
 **Query Parameters:**
 - `well_id` (required): Well ID
-- `metric` (required): نام metric (temperature, pressure, flow, vibration, current)
-- `days` (default: 30, max: 365): تعداد روزها
+- `metric` (required): metric name (temperature, pressure, flow, vibration, current)
+- `days` (default: 30, max: 365): number of days
 
 **Example:**
 ```bash
@@ -105,17 +105,17 @@ curl -X GET "http://localhost:8000/api/v1/analytics/trends?well_id=Well_01&metri
 }
 ```
 
-### 3. مقایسه چاه‌ها (Comparison)
+### 3. Compare Wells (Comparison)
 
 **GET** `/api/v1/analytics/comparison`
 
-مقایسه چند چاه برای یک metric
+Compare several wells for a metric
 
 **Query Parameters:**
-- `well_ids` (required): لیست well IDs (2-10 چاه)
-- `metric` (required): metric برای مقایسه
-- `start_time` (optional): زمان شروع
-- `end_time` (optional): زمان پایان
+- `well_ids` (required): list of well IDs (2-10 wells)
+- `metric` (required): metric to compare
+- `start_time` (optional): start time
+- `end_time` (optional): end time
 
 **Example:**
 ```bash
@@ -157,16 +157,16 @@ curl -X GET "http://localhost:8000/api/v1/analytics/comparison?well_ids=Well_01&
 }
 ```
 
-### 4. دریافت Performance Metrics
+### 4. Get Performance Metrics
 
 **GET** `/api/v1/analytics/performance`
 
-دریافت معیارهای عملکرد
+Get performance metrics
 
 **Query Parameters:**
-- `well_id` (optional): فیلتر بر اساس well ID
-- `start_time` (optional): زمان شروع
-- `end_time` (optional): زمان پایان
+- `well_id` (optional): filter by well ID
+- `start_time` (optional): start time
+- `end_time` (optional): end time
 
 **Example:**
 ```bash
@@ -194,19 +194,19 @@ curl -X GET "http://localhost:8000/api/v1/analytics/performance" \
 }
 ```
 
-### 5. دریافت Time Series Data
+### 5. Get Time Series Data
 
 **GET** `/api/v1/analytics/timeseries`
 
-دریافت داده‌های time series برای visualization
+Get time series data for visualization
 
 **Query Parameters:**
 - `well_id` (required): Well ID
-- `sensor_type` (required): نوع سنسور
-- `start_time` (required): زمان شروع
-- `end_time` (required): زمان پایان
-- `aggregation` (default: "hourly"): سطح aggregation (raw, hourly, daily)
-- `limit` (default: 1000, max: 10000): حداکثر تعداد data points
+- `sensor_type` (required): sensor type
+- `start_time` (required): start time
+- `end_time` (required): end time
+- `aggregation` (default: "hourly"): aggregation level (raw, hourly, daily)
+- `limit` (default: 1000, max: 10000): maximum number of data points
 
 **Example:**
 ```bash
@@ -233,15 +233,15 @@ curl -X GET "http://localhost:8000/api/v1/analytics/timeseries?well_id=Well_01&s
 }
 ```
 
-### 6. دریافت Analytics Summary
+### 6. Get Analytics Summary
 
 **GET** `/api/v1/analytics/summary`
 
-دریافت خلاصه کامل analytics
+Get a complete analytics summary
 
 **Query Parameters:**
-- `well_id` (optional): فیلتر بر اساس well ID
-- `days` (default: 30, max: 365): تعداد روزها
+- `well_id` (optional): filter by well ID
+- `days` (default: 30, max: 365): number of days
 
 **Example:**
 ```bash
@@ -262,7 +262,7 @@ curl -X GET "http://localhost:8000/api/v1/analytics/summary?days=7" \
 }
 ```
 
-## Metrics پشتیبانی شده
+## Supported Metrics
 
 - `temperature` → motor_temperature
 - `pressure` → intake_pressure
@@ -270,51 +270,51 @@ curl -X GET "http://localhost:8000/api/v1/analytics/summary?days=7" \
 - `vibration` → vibration
 - `current` → current
 
-## KPIs محاسبه شده
+## Calculated KPIs
 
 ### Basic KPIs:
-- `total_readings`: تعداد کل readings
-- `active_wells`: تعداد چاه‌های فعال
-- `data_quality_percentage`: درصد کیفیت داده
+- `total_readings`: total number of readings
+- `active_wells`: number of active wells
+- `data_quality_percentage`: data quality percentage
 
 ### Sensor-specific KPIs:
-- `{sensor_type}_avg`: میانگین
-- `{sensor_type}_min`: حداقل
-- `{sensor_type}_max`: حداکثر
-- `{sensor_type}_std`: انحراف معیار
+- `{sensor_type}_avg`: average
+- `{sensor_type}_min`: minimum
+- `{sensor_type}_max`: maximum
+- `{sensor_type}_std`: standard deviation
 
 ### Derived KPIs:
-- `average_efficiency`: میانگین کارایی (flow_rate / current)
-- `average_pressure_differential`: تفاضل فشار (discharge - intake)
+- `average_efficiency`: average efficiency (flow_rate / current)
+- `average_pressure_differential`: pressure differential (discharge - intake)
 
 ## Trend Analysis
 
 ### Trend Direction:
-- `increasing`: روند صعودی
-- `decreasing`: روند نزولی
-- `stable`: روند ثابت
+- `increasing`: upward trend
+- `decreasing`: downward trend
+- `stable`: stable trend
 
 ### Trend Strength:
-- محاسبه شده بر اساس slope و standard deviation
-- هرچه بیشتر باشد، روند قوی‌تر است
+- Calculated based on slope and standard deviation
+- The higher it is, the stronger the trend
 
 ## Permissions
 
-- `VIEW_ANALYTICS`: برای مشاهده analytics
-- `EXPORT_ANALYTICS`: برای export داده‌ها
+- `VIEW_ANALYTICS`: to view analytics
+- `EXPORT_ANALYTICS`: to export data
 
 ## Best Practices
 
-1. **Time Ranges**: محدوده زمانی را محدود کنید (max 1 year)
-2. **Aggregation**: برای داده‌های تاریخی از aggregation استفاده کنید
-3. **Caching**: نتایج analytics را cache کنید
-4. **Pagination**: برای time series از limit استفاده کنید
-5. **Comparison**: حداکثر 10 چاه را همزمان مقایسه کنید
+1. **Time Ranges**: Limit the time range (max 1 year)
+2. **Aggregation**: Use aggregation for historical data
+3. **Caching**: Cache analytics results
+4. **Pagination**: Use limit for time series
+5. **Comparison**: Compare at most 10 wells at once
 
 ## Performance Tips
 
-- از aggregation برای کاهش حجم داده استفاده کنید
-- برای real-time analytics از cache استفاده کنید
-- محدوده زمانی را محدود کنید
-- از indexes در database استفاده کنید
+- Use aggregation to reduce data volume
+- Use the cache for real-time analytics
+- Limit the time range
+- Use database indexes
 

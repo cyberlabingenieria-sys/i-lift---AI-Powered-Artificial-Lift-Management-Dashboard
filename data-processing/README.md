@@ -1,29 +1,29 @@
 # Synthetic Data Generator
 
-ابزار تولید داده‌های سنتتیک واقع‌گرایانه برای سیستم‌های Artificial Lift.
+A tool for generating realistic synthetic data for Artificial Lift systems.
 
-## ویژگی‌ها
+## Features
 
-- ✅ تولید داده برای چندین چاه
-- ✅ الگوهای واقع‌گرایانه (daily/weekly cycles)
-- ✅ سناریوهای خرابی (failure scenarios)
-- ✅ Anomalies تصادفی
-- ✅ Export به فرمت‌های مختلف (Parquet, CSV, JSON)
-- ✅ قابلیت تکرارپذیری با seed
-- ✅ آمار و گزارش
+- ✅ Data generation for multiple wells
+- ✅ Realistic patterns (daily/weekly cycles)
+- ✅ Failure scenarios
+- ✅ Random anomalies
+- ✅ Export to various formats (Parquet, CSV, JSON)
+- ✅ Reproducibility with seed
+- ✅ Statistics and reporting
 
-## استفاده
+## Usage
 
-### از طریق Command Line
+### Via Command Line
 
 ```bash
 cd data-processing
 python synthetic_data_generator.py
 ```
 
-این دستور داده‌های 6 ماهه برای 10 چاه تولید می‌کند.
+This command generates 6 months of data for 10 wells.
 
-### از طریق Python API
+### Via Python API
 
 ```python
 from synthetic_data_generator import SyntheticALSDataGenerator
@@ -62,7 +62,7 @@ stats = generator.get_statistics(df)
 print(stats)
 ```
 
-### از طریق REST API
+### Via REST API
 
 ```bash
 # Generate synthetic data
@@ -85,67 +85,67 @@ curl -X GET "http://localhost:8000/api/v1/synthetic-data/stats?file_path=data/ge
   -H "Authorization: Bearer TOKEN"
 ```
 
-## پارامترها
+## Parameters
 
 ### generate_well_data()
 
-- `well_id`: شناسه چاه
-- `start_date`: تاریخ شروع
-- `days`: تعداد روزها (پیش‌فرض: 180)
-- `interval_seconds`: فاصله زمانی به ثانیه (پیش‌فرض: 1)
-- `include_anomalies`: شامل anomalies (پیش‌فرض: True)
-- `include_failures`: شامل failure scenarios (پیش‌فرض: True)
-- `failure_probability`: احتمال خرابی (0-1, پیش‌فرض: 0.1)
+- `well_id`: well identifier
+- `start_date`: start date
+- `days`: number of days (default: 180)
+- `interval_seconds`: time interval in seconds (default: 1)
+- `include_anomalies`: include anomalies (default: True)
+- `include_failures`: include failure scenarios (default: True)
+- `failure_probability`: failure probability (0-1, default: 0.1)
 
-## سنسورها
+## Sensors
 
-داده‌های تولید شده شامل این سنسورها هستند:
+The generated data includes these sensors:
 
-1. **motor_temperature**: دمای موتور (65-120°C)
-2. **intake_pressure**: فشار ورودی (450-600 psi)
-3. **discharge_pressure**: فشار خروجی (800-1200 psi)
-4. **vibration**: ارتعاش (0.5-5.0 g)
-5. **current**: جریان (30-80 A)
-6. **flow_rate**: نرخ جریان (1500-2500 bpd)
+1. **motor_temperature**: motor temperature (65-120°C)
+2. **intake_pressure**: intake pressure (450-600 psi)
+3. **discharge_pressure**: discharge pressure (800-1200 psi)
+4. **vibration**: vibration (0.5-5.0 g)
+5. **current**: current (30-80 A)
+6. **flow_rate**: flow rate (1500-2500 bpd)
 
-## الگوهای داده
+## Data Patterns
 
 ### Daily Cycle
-تغییرات روزانه (day/night) با استفاده از sine wave
+Daily variations (day/night) using a sine wave
 
 ### Weekly Trend
-روند هفتگی برای شبیه‌سازی برنامه تولید
+Weekly trend to simulate the production schedule
 
 ### Gradual Drift
-Drift تدریجی برای شبیه‌سازی aging تجهیزات
+Gradual drift to simulate equipment aging
 
 ### Failure Scenarios
-- **Temperature/Vibration**: افزایش تدریجی (overheating, bearing wear)
-- **Pressure**: کاهش تدریجی (pump degradation)
-- **Current**: نوسانات افزایشی (motor issues)
-- **Flow Rate**: کاهش تدریجی (production decline)
+- **Temperature/Vibration**: Gradual increase (overheating, bearing wear)
+- **Pressure**: Gradual decrease (pump degradation)
+- **Current**: Increasing fluctuations (motor issues)
+- **Flow Rate**: Gradual decrease (production decline)
 
 ### Anomalies
-- 1% از داده‌ها شامل anomalies تصادفی
-- Spike یا drop ناگهانی
+- 1% of the data includes random anomalies
+- Sudden spike or drop
 - Magnitude: 2-5x standard deviation
 
 ## Export Formats
 
-### Parquet (توصیه شده)
-- فشرده و سریع
-- مناسب برای datasets بزرگ
-- حفظ انواع داده
+### Parquet (recommended)
+- Compressed and fast
+- Suitable for large datasets
+- Preserves data types
 
 ### CSV
-- سازگار با اکثر ابزارها
-- قابل تقسیم به chunks برای فایل‌های بزرگ
+- Compatible with most tools
+- Can be split into chunks for large files
 
 ### JSON
-- مناسب برای API/testing
-- محدود به نمونه‌های کوچک (تا 10K records)
+- Suitable for API/testing
+- Limited to small samples (up to 10K records)
 
-## آمار و گزارش
+## Statistics and Reporting
 
 ```python
 stats = generator.get_statistics(df)
@@ -160,34 +160,34 @@ stats = generator.get_statistics(df)
 # }
 ```
 
-## مثال‌ها
+## Examples
 
-### تولید داده برای تست
+### Generating Data for Testing
 ```python
-# 1 روز داده با interval 1 ثانیه
+# 1 day of data with a 1-second interval
 df = generator.generate_well_data(
     well_id="Test_Well",
     start_date=datetime.now() - timedelta(days=1),
     days=1,
     interval_seconds=1,
-    include_failures=False,  # بدون failure برای تست
+    include_failures=False,  # without failure for testing
 )
 ```
 
-### تولید داده با failure
+### Generating Data with Failure
 ```python
-# 30 روز با احتمال خرابی بالا
+# 30 days with a high probability of failure
 df = generator.generate_well_data(
     well_id="Well_08",
     start_date=datetime.now() - timedelta(days=30),
     days=30,
-    failure_probability=0.5,  # 50% احتمال خرابی
+    failure_probability=0.5,  # 50% probability of failure
 )
 ```
 
-### تولید داده برای ML Training
+### Generating Data for ML Training
 ```python
-# 6 ماه داده برای training
+# 6 months of data for training
 well_ids = [f"Well_{i:02d}" for i in range(1, 21)]  # 20 wells
 df = generator.generate_multiple_wells(
     well_ids=well_ids,
@@ -201,10 +201,10 @@ df = generator.generate_multiple_wells(
 generator.export_to_parquet(df, "data/ml_training_data.parquet")
 ```
 
-## نکات
+## Notes
 
-1. **Memory**: برای datasets بزرگ، از Parquet استفاده کنید
-2. **Reproducibility**: از seed برای تکرارپذیری استفاده کنید
-3. **Performance**: interval_seconds را برای کاهش حجم داده افزایش دهید
-4. **Realism**: failure_probability را بر اساس نیاز تنظیم کنید
+1. **Memory**: Use Parquet for large datasets
+2. **Reproducibility**: Use seed for reproducibility
+3. **Performance**: Increase interval_seconds to reduce data volume
+4. **Realism**: Set failure_probability as needed
 

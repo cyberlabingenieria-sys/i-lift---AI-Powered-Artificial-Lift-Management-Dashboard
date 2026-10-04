@@ -1,8 +1,8 @@
-# راهنمای Data Processing Pipeline
+# Data Processing Pipeline Guide
 
-Pipeline پردازش داده برای پردازش real-time داده‌های دریافتی از Kafka و ذخیره در پایگاه داده طراحی شده است.
+The data processing pipeline is designed to process, in real time, data received from Kafka and store it in the database.
 
-## معماری Pipeline
+## Pipeline Architecture
 
 ```
 [Kafka] → [Consumer] → [Stream Processor] → [Feature Engineer] → [Database Writer] → [TimescaleDB]
@@ -11,18 +11,18 @@ Pipeline پردازش داده برای پردازش real-time داده‌های
         Queue          Statistics            Time Features           Optimized
 ```
 
-## مراحل پردازش
+## Processing Stages
 
 ### 1. Kafka Consumer
-- دریافت داده از Kafka topic `sensor-data`
+- Receiving data from the Kafka topic `sensor-data`
 - Deserialization JSON
-- Error handling و retry
+- Error handling and retry
 
 ### 2. Stream Processing
-- پردازش real-time با sliding window
-- محاسبه آمار (mean, std, min, max)
-- تشخیص anomaly با z-score
-- محاسبه rate of change
+- Real-time processing with a sliding window
+- Calculating statistics (mean, std, min, max)
+- Anomaly detection with z-score
+- Calculating rate of change
 
 ### 3. Feature Engineering
 - Time-based features (hour, day, month, cyclical)
@@ -31,15 +31,15 @@ Pipeline پردازش داده برای پردازش real-time داده‌های
 - Historical window analysis
 
 ### 4. Database Writer
-- Batch writing برای بهینه‌سازی
-- Bulk insert به TimescaleDB
-- Error handling و retry
+- Batch writing for optimization
+- Bulk insert into TimescaleDB
+- Error handling and retry
 
-## استفاده
+## Usage
 
-### راه‌اندازی Pipeline
+### Starting the Pipeline
 
-#### از طریق API:
+#### Via API:
 ```bash
 # Start pipeline
 curl -X POST "http://localhost:8000/api/v1/processing/start" \
@@ -58,13 +58,13 @@ curl -X POST "http://localhost:8000/api/v1/processing/stop" \
   -H "Authorization: Bearer ADMIN_TOKEN"
 ```
 
-#### از طریق Script:
+#### Via Script:
 ```bash
 cd backend
 python scripts/start_processing_pipeline.py
 ```
 
-### کنترل Pipeline
+### Controlling the Pipeline
 
 ```bash
 # Pause
@@ -76,20 +76,20 @@ curl -X POST "http://localhost:8000/api/v1/processing/resume" \
   -H "Authorization: Bearer ADMIN_TOKEN"
 ```
 
-## Features محاسبه شده
+## Calculated Features
 
 ### Stream Processing Features
-- `window_size`: تعداد readings در window
-- `mean`: میانگین
-- `median`: میانه
-- `std`: انحراف معیار
-- `min/max`: حداقل/حداکثر
-- `range`: دامنه
-- `change_from_mean`: تغییر از میانگین
-- `change_percent`: درصد تغییر
-- `rate_of_change`: نرخ تغییر
+- `window_size`: number of readings in the window
+- `mean`: average
+- `median`: median
+- `std`: standard deviation
+- `min/max`: minimum/maximum
+- `range`: range
+- `change_from_mean`: change from the mean
+- `change_percent`: percentage change
+- `rate_of_change`: rate of change
 - `z_score`: Z-score
-- `is_anomaly`: تشخیص anomaly
+- `is_anomaly`: anomaly detection
 
 ### Feature Engineering Features
 
@@ -104,15 +104,15 @@ curl -X POST "http://localhost:8000/api/v1/processing/resume" \
 - `iqr` (Interquartile Range)
 
 #### Trend Features:
-- `trend`: شیب خط روند
-- `acceleration`: شتاب تغییر
-- `volatility`: نوسانات
+- `trend`: slope of the trend line
+- `acceleration`: acceleration of change
+- `volatility`: volatility
 
 #### Cyclical Features:
 - `day_of_year`, `week_of_year`, `quarter`
 - `day_of_year_sin/cos`
 
-## پیکربندی
+## Configuration
 
 ### Environment Variables:
 ```env
@@ -128,8 +128,8 @@ WINDOW_SIZE=60
 ### Pipeline Parameters:
 ```python
 pipeline = DataProcessingPipeline(
-    batch_size=100,      # تعداد records در batch
-    window_size=60,      # اندازه window به ثانیه
+    batch_size=100,      # number of records per batch
+    window_size=60,      # window size in seconds
 )
 ```
 
@@ -168,56 +168,56 @@ pipeline = DataProcessingPipeline(
 ## Performance Optimization
 
 ### Batch Writing
-- داده‌ها در buffer جمع می‌شوند
-- وقتی buffer پر شد یا flush شود، bulk insert انجام می‌شود
-- کاهش تعداد write operations
+- Data is collected in a buffer
+- When the buffer is full or flushed, a bulk insert is performed
+- Reduces the number of write operations
 
 ### Sliding Window
-- فقط داده‌های اخیر نگه داشته می‌شوند
-- حافظه محدود با maxlen
-- محاسبات سریع
+- Only recent data is kept
+- Limited memory with maxlen
+- Fast computation
 
 ### Error Handling
-- خطاها log می‌شوند
-- پردازش ادامه پیدا می‌کند
-- آمار خطاها نگه داشته می‌شود
+- Errors are logged
+- Processing continues
+- Error statistics are kept
 
 ## Troubleshooting
 
 ### Pipeline Not Processing
-1. بررسی کنید Kafka consumer متصل است
-2. بررسی کنید Kafka topic وجود دارد
-3. بررسی logs برای خطاها
+1. Check that the Kafka consumer is connected
+2. Check that the Kafka topic exists
+3. Check the logs for errors
 
 ### High Error Rate
-1. بررسی format داده‌ها
-2. بررسی database connection
-3. بررسی validation errors
+1. Check the data format
+2. Check the database connection
+3. Check validation errors
 
 ### Slow Processing
-1. افزایش batch_size
-2. کاهش window_size
-3. بررسی database performance
+1. Increase batch_size
+2. Decrease window_size
+3. Check database performance
 
 ## Best Practices
 
-1. **Monitoring**: آمار pipeline را به صورت منظم بررسی کنید
-2. **Error Handling**: خطاها را log و monitor کنید
-3. **Batch Size**: batch_size را بر اساس throughput تنظیم کنید
-4. **Window Size**: window_size را بر اساس نیاز analytics تنظیم کنید
-5. **Health Checks**: health check را به صورت منظم اجرا کنید
+1. **Monitoring**: Check pipeline statistics regularly
+2. **Error Handling**: Log and monitor errors
+3. **Batch Size**: Set batch_size based on throughput
+4. **Window Size**: Set window_size based on analytics needs
+5. **Health Checks**: Run health checks regularly
 
-## Integration با سایر Components
+## Integration with Other Components
 
-### با Ingestion:
-- داده‌های validated از ingestion به Kafka می‌روند
-- Pipeline از Kafka می‌خواند
+### With Ingestion:
+- Validated data from ingestion goes to Kafka
+- The pipeline reads from Kafka
 
-### با Database:
-- داده‌های processed به TimescaleDB ذخیره می‌شوند
-- از hypertable برای بهینه‌سازی استفاده می‌شود
+### With Database:
+- Processed data is stored in TimescaleDB
+- Hypertables are used for optimization
 
-### با ML Services:
-- Features engineered برای ML models آماده هستند
-- می‌توانند برای training و prediction استفاده شوند
+### With ML Services:
+- Engineered features are ready for ML models
+- They can be used for training and prediction
 

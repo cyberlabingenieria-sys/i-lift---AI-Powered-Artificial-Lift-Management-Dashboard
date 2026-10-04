@@ -1,10 +1,10 @@
 # DevOps Documentation
 
-راهنمای کامل DevOps و Deployment
+Complete DevOps and Deployment Guide
 
 ## Overview
 
-این مستندات شامل تمام اطلاعات لازم برای استقرار و مدیریت IntelliLift AI Dashboard در محیط production است.
+This documentation includes all the information needed to deploy and manage the IntelliLift AI Dashboard in a production environment.
 
 ## Deployment Options
 
@@ -23,8 +23,8 @@ cp .env.example .env
 
 #### Configuration
 
-فایل `docker-compose.prod.yml` شامل:
-- Health checks برای تمام services
+The `docker-compose.prod.yml` file includes:
+- Health checks for all services
 - Resource limits
 - Restart policies
 - Volume management
@@ -67,7 +67,7 @@ kubectl apply -f k8s/ingress.yaml
 
 ### GitHub Actions
 
-Pipeline شامل:
+The pipeline includes:
 1. **Build**: Build Docker images
 2. **Test**: Run tests
 3. **Push**: Push to container registry

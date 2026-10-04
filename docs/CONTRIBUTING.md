@@ -1,10 +1,10 @@
 # Contributing Guide
 
-از مشارکت شما در IntelliLift AI Dashboard استقبال می‌کنیم!
+We welcome your contribution to the IntelliLift AI Dashboard!
 
 ## Code of Conduct
 
-لطفاً قوانین و اصول اخلاقی پروژه را رعایت کنید.
+Please follow the project's rules and code of conduct.
 
 ## Getting Started
 
@@ -92,7 +92,7 @@ git commit -m "Add: description of changes"
 git push origin feature/your-feature-name
 ```
 
-سپس Pull Request را در GitHub ایجاد کنید.
+Then create a Pull Request on GitHub.
 
 ## Coding Standards
 
